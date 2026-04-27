@@ -37,13 +37,6 @@
             <span class="line-1">Hand</span>
             <span class="line-2">Curated.</span>
           </div>
-          <button class="arrow prev" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <button class="arrow next" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-          <div class="dots" id="hero-dots"></div>
         </div>
 
         <div class="stats">
@@ -206,9 +199,9 @@
   <script src="assets/js/products.js"></script>
   <script src="assets/js/app.js"></script>
   <script>
-    // Hero carousel — uses real product images
+    // Hero carousel — clean auto-advance, no controls
     (function initHeroCarousel() {
-      const slidesData = [
+      const slides = [
         { img: "assets/images/money-bouquet-purple.jpeg", slug: "money-bouquet-purple-lily", alt: "Lavender money bouquet" },
         { img: "assets/images/setup-room-balloons.jpeg", slug: "setup-romantic-room", alt: "Full romantic room surprise" },
         { img: "assets/images/hamper-ferrero-roses.jpeg", slug: "hamper-ferrero-roses", alt: "Ferrero and roses hamper" },
@@ -217,46 +210,37 @@
         { img: "assets/images/balloon-pink-trio.jpeg", slug: "balloon-pink-trio", alt: "Pink trio balloon set" }
       ];
       const track = document.getElementById("hero-track");
-      const dotsWrap = document.getElementById("hero-dots");
-      track.innerHTML = slidesData.map(s => `
+      const carousel = document.getElementById("hero-carousel");
+      if (!track || !carousel) return;
+
+      track.innerHTML = slides.map(s => `
         <a class="slide" href="product.html?p=${s.slug}" aria-label="${s.alt}">
-          <img src="${s.img}" alt="${s.alt}" loading="eager">
+          <img src="${s.img}" alt="${s.alt}">
         </a>
       `).join("");
-      dotsWrap.innerHTML = slidesData.map((_, i) => `<button aria-label="Slide ${i + 1}" data-i="${i}"${i === 0 ? ' class="active"' : ""}></button>`).join("");
 
-      const dots = dotsWrap.querySelectorAll("button");
-      const carousel = document.getElementById("hero-carousel");
-      const total = slidesData.length;
-      let i = 0, autoT;
+      const total = slides.length;
+      let i = 0;
 
       function go(n) {
         i = (n + total) % total;
         track.style.transform = `translateX(-${i * 100}%)`;
-        dots.forEach((d, idx) => d.classList.toggle("active", idx === i));
       }
-      function tickle() { clearTimeout(autoT); autoT = setTimeout(() => go(i + 1), 4500); }
-      function next() { go(i + 1); tickle(); }
-      function prev() { go(i - 1); tickle(); }
 
-      dots.forEach((d, idx) => d.addEventListener("click", () => { go(idx); tickle(); }));
-      carousel.querySelector(".next").addEventListener("click", next);
-      carousel.querySelector(".prev").addEventListener("click", prev);
+      let timer = setInterval(() => go(i + 1), 4000);
 
-      // Touch / swipe
+      // Pause on hover (desktop)
+      carousel.addEventListener("mouseenter", () => clearInterval(timer));
+      carousel.addEventListener("mouseleave", () => { timer = setInterval(() => go(i + 1), 4000); });
+
+      // Touch swipe (mobile, optional)
       let startX = 0, dx = 0;
-      track.addEventListener("touchstart", e => { startX = e.touches[0].clientX; dx = 0; clearTimeout(autoT); }, { passive: true });
+      track.addEventListener("touchstart", e => { startX = e.touches[0].clientX; dx = 0; clearInterval(timer); }, { passive: true });
       track.addEventListener("touchmove",  e => { dx = e.touches[0].clientX - startX; }, { passive: true });
       track.addEventListener("touchend",   () => {
-        if (Math.abs(dx) > 40) (dx < 0 ? next : prev)();
-        else tickle();
+        if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1));
+        timer = setInterval(() => go(i + 1), 4000);
       });
-
-      // Pause on hover
-      carousel.addEventListener("mouseenter", () => clearTimeout(autoT));
-      carousel.addEventListener("mouseleave", tickle);
-
-      tickle();
     })();
 
     // Categories grid
