@@ -18,7 +18,8 @@
       "Bash(vercel whoami *)",
       "Bash(vercel deploy *)",
       "Bash(vercel git *)",
-      "Bash(vercel project *)"
+      "Bash(vercel project *)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }

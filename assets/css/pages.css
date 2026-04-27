@@ -45,7 +45,7 @@
 .hero .stats span { display: inline-flex; align-items: center; gap: 8px; }
 .hero .stats .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
 
-/* ─── Hero Carousel ─── */
+/* ─── Hero Carousel (native scroll-snap) ─── */
 .hero-carousel {
   position: relative;
   width: 100%;
@@ -58,16 +58,25 @@
 .hero-carousel .track {
   display: flex;
   flex-wrap: nowrap;
-  height: 100%;
   width: 100%;
-  transition: transform 800ms var(--ease-soft);
-  will-change: transform;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
 }
+.hero-carousel .track::-webkit-scrollbar { display: none; }
+
 .hero-carousel .slide {
   flex: 0 0 100%;
   width: 100%;
   min-width: 100%;
   height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   position: relative;
   display: block;
   background: var(--cream-2);
