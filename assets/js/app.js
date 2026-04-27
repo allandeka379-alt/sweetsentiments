@@ -224,10 +224,6 @@ function ssShell() {
   };
 
   const headerHTML = `
-    <div class="announce">
-      <span class="announce-pulse"></span>
-      <span>Nationwide delivery · Order before 2pm · +263 71 723 5937</span>
-    </div>
     <header class="site-header" id="ss-header">
       <div class="inner">
         <button class="icon-btn menu-trigger" aria-label="Open menu" onclick="SS.openMenu()">
