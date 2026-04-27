@@ -107,8 +107,56 @@
 }
 
 @media (max-width: 900px) {
-  .hero .grid { grid-template-columns: 1fr; }
-  .hero-collage { aspect-ratio: 1.1 / 1; max-width: 520px; margin-inline: auto; }
+  .hero { padding-top: 24px; padding-bottom: 56px; }
+  .hero .grid { grid-template-columns: 1fr; gap: 28px; }
+  .hero-copy { max-width: 100%; text-align: left; }
+  .hero h1 { font-size: clamp(2.4rem, 9vw, 3.4rem); margin-block: 12px 20px; }
+  .hero .lede { font-size: 1.05rem; margin-bottom: 24px; }
+  .hero .ctas { flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .hero .ctas .btn { width: 100%; }
+  .hero .stats { gap: 10px 16px; padding-top: 18px; font-size: 0.78rem; }
+  .hero .stats .dot { display: none; }
+
+  /* Single clean image on mobile — no scattered collage */
+  .hero-collage {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    max-width: 100%;
+    width: 100%;
+    margin-inline: 0;
+    border-radius: var(--r-hero);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .hero-collage .pic { display: none; }
+  .hero-collage .p1 {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    aspect-ratio: auto;
+    transform: none !important;
+    animation: none;
+    border-radius: var(--r-hero);
+    box-shadow: none;
+    z-index: 1;
+  }
+  .hero-collage .p1 img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-badge {
+    top: auto;
+    bottom: 16px;
+    left: 16px;
+    width: 96px;
+    height: 96px;
+    font-size: 0.78rem;
+    z-index: 3;
+  }
+  .hero-script { display: none; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: clamp(2.2rem, 11vw, 3rem); }
+  .hero-badge { width: 84px; height: 84px; font-size: 0.72rem; }
 }
 
 /* ─── Section heading ─── */

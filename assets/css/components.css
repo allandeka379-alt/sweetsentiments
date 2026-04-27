@@ -217,6 +217,81 @@
   .menu-trigger { display: inline-flex; }
 }
 
+@media (max-width: 768px) {
+  :root { --header-h: 64px; }
+  .site-header .inner { gap: 8px; padding-inline: 16px; }
+  .brand-mark .name { font-size: 1.25rem; }
+  .brand-mark .tag { font-size: 0.5rem; letter-spacing: 0.22em; margin-top: 2px; }
+  .utility { gap: 4px; }
+  .icon-btn { width: 38px; height: 38px; }
+  .icon-btn svg { width: 17px; height: 17px; }
+  .marquee { padding: 14px 0; }
+  .marquee-track { font-size: 1.4rem; gap: 32px; }
+  .marquee-track span { gap: 32px; }
+  .container, .container-narrow, .container-essay { padding-inline: 16px; }
+  .section { padding-block: 48px; }
+  .section-tight { padding-block: 36px; }
+  .section-head { margin-bottom: 24px; }
+  .section-head .row { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .h2-italic { font-size: 1.9rem; line-height: 1.1; }
+  .cat-grid { gap: 12px; }
+  .card-category .label { font-size: 1.25rem; left: 16px; bottom: 16px; }
+  .card-category .count { right: 16px; bottom: 18px; font-size: 0.66rem; }
+  .editorial { padding: 56px 0; }
+  .editorial::before { width: 320px; height: 320px; top: -120px; right: -120px; }
+  .editorial h2 { font-size: 1.85rem; margin: 12px 0 20px; }
+  .editorial .pic { aspect-ratio: 4/3; }
+  .editorial .grid { gap: 24px; }
+  .testimonial blockquote { font-size: 1.4rem; line-height: 1.3; }
+  .cta-band { padding: 56px 16px; }
+  .cta-band h2 { font-size: 2.2rem; }
+  .rail .item { flex: 0 0 165px; }
+  .rail .item .label { font-size: 1.15rem; left: 14px; bottom: 12px; }
+  .ig-strip { gap: 4px; }
+  .article-card h3 { font-size: 1.3rem; }
+  .site-footer { padding: 48px 0 24px; }
+  .site-footer .grid { padding-bottom: 32px; }
+  .site-footer .strip { padding-top: 16px; flex-direction: column; gap: 6px; }
+  .btn { padding: 0.85rem 1.4rem; font-size: 0.86rem; }
+  .btn-lg { padding: 1rem 1.6rem; }
+  .chip { padding: 7px 14px; font-size: 0.78rem; }
+  .filter-bar { gap: 10px; padding: 12px 0; }
+  .chips { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .tab-list { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 6px; gap: 14px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .tab-list::-webkit-scrollbar { display: none; }
+  .tab-list a { white-space: nowrap; font-size: 0.78rem; }
+  .collection-hero h1 { font-size: 2.2rem; }
+  .collection-hero .hero-pic { aspect-ratio: 16/10; margin-bottom: 18px; }
+  .pdp { gap: 24px; padding: 16px 0 32px; }
+  .gallery { position: static; }
+  .gallery .main { aspect-ratio: 1/1; }
+  .pdp-info h1 { font-size: 1.9rem; }
+  .pdp-info .price { font-size: 1.7rem; margin-bottom: 18px; }
+  .story-strip { aspect-ratio: 4/3; margin: 32px 0; }
+  .story-strip .caption { font-size: 0.92rem; padding: 8px 12px; bottom: 14px; left: 14px; }
+  .reviews .top { flex-wrap: wrap; gap: 8px; }
+  .reviews .top .avg { font-size: 2rem; }
+  .essay h1 { font-size: 2.2rem; }
+  .essay p.lead { font-size: 1.15rem; }
+  .essay p { font-size: 1rem; line-height: 1.75; }
+  .essay h2 { font-size: 1.6rem; margin: 36px 0 14px; }
+  .timeline { padding-left: 20px; }
+  .bespoke-form { padding: 22px; }
+  .bespoke-nudge { padding: 36px 20px; }
+  .bespoke-nudge h2 { font-size: 1.6rem; }
+  .featured-article h2 { font-size: 1.8rem; }
+  .zones-table { font-size: 0.84rem; }
+  .zones-table th, .zones-table td { padding: 10px 8px; }
+}
+
+@media (max-width: 380px) {
+  .brand-mark .name { font-size: 1.05rem; }
+  .brand-mark .tag { display: none; }
+  .icon-btn { width: 34px; height: 34px; }
+  .marquee-track { font-size: 1.15rem; }
+}
+
 /* ─── Mobile drawer menu ─── */
 .menu-overlay {
   position: fixed;
