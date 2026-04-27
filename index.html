@@ -24,43 +24,36 @@
   <!-- HERO -->
   <section class="hero">
     <div class="container">
-      <div class="grid">
-        <div class="hero-copy">
+      <div class="hero-stack">
+        <div class="hero-intro">
           <span class="eyebrow">— The 2026 Collection</span>
           <h1>Some gifts are remembered. <em>Ours are kept.</em></h1>
-          <p class="lede">Hand-curated hampers, money bouquets and surprise setups — delivered with care, wherever the moment lands.</p>
-          <div class="ctas">
-            <a class="btn btn-ink btn-lg" href="shop.html">Shop the Collection</a>
-            <a class="btn btn-whatsapp btn-lg" href="https://wa.me/263717235937?text=Hi%20Sweet%20Sentiments%2C%20I%27d%20like%20to%20ask%20about%20a%20gift." target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20.5 3.5A11.7 11.7 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5zM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.9 9.9 0 1 1 22 12c0 5.5-4.5 10-10 10z"/></svg>
-              Order on WhatsApp
-            </a>
-          </div>
-          <div class="stats">
-            <span><strong>500+</strong>&nbsp;Sentiments Delivered</span>
-            <span class="dot"></span>
-            <span><strong>4.9 ★</strong>&nbsp;Average</span>
-            <span class="dot"></span>
-            <span>Free Card With Every Order</span>
-          </div>
+          <p class="lede">Hampers, money bouquets and surprise setups — delivered, beautifully, wherever the moment lands.</p>
         </div>
 
-        <div class="hero-collage">
-          <div class="pic p1"><img src="assets/images/money-bouquet-purple.jpeg" alt="Lavender money bouquet"></div>
-          <div class="pic p2"><img src="assets/images/setup-room-balloons.jpeg" alt="Romantic room balloon setup"></div>
-          <div class="pic p3"><img src="assets/images/hamper-ferrero-roses.jpeg" alt="Ferrero and roses hamper"></div>
-          <div class="hero-badge"><span>Hand<br>Curated</span></div>
-          <span class="hero-script">pick yours ↘</span>
+        <div class="hero-carousel" id="hero-carousel">
+          <div class="track" id="hero-track"></div>
+          <div class="overlay">
+            <span class="line-1">Hand</span>
+            <span class="line-2">Curated.</span>
+          </div>
+          <button class="arrow prev" aria-label="Previous">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="arrow next" aria-label="Next">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <div class="dots" id="hero-dots"></div>
+        </div>
+
+        <div class="stats">
+          <span><strong>500+</strong>&nbsp;Sentiments Delivered</span>
+          <span class="dot"></span>
+          <span><strong>4.9 ★</strong>&nbsp;Average</span>
+          <span class="dot"></span>
+          <span>Free Card With Every Order</span>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- MARQUEE -->
-  <section class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Hampers <em class="star">❋</em> Money Bouquets <em class="star">❋</em> Chocolate Towers <em class="star">❋</em> Balloon Arrangements <em class="star">❋</em> Romantic Setups <em class="star">❋</em> Bespoke <em class="star">❋</em></span>
-      <span>Hampers <em class="star">❋</em> Money Bouquets <em class="star">❋</em> Chocolate Towers <em class="star">❋</em> Balloon Arrangements <em class="star">❋</em> Romantic Setups <em class="star">❋</em> Bespoke <em class="star">❋</em></span>
     </div>
   </section>
 
@@ -213,6 +206,59 @@
   <script src="assets/js/products.js"></script>
   <script src="assets/js/app.js"></script>
   <script>
+    // Hero carousel — uses real product images
+    (function initHeroCarousel() {
+      const slidesData = [
+        { img: "assets/images/money-bouquet-purple.jpeg", slug: "money-bouquet-purple-lily", alt: "Lavender money bouquet" },
+        { img: "assets/images/setup-room-balloons.jpeg", slug: "setup-romantic-room", alt: "Full romantic room surprise" },
+        { img: "assets/images/hamper-ferrero-roses.jpeg", slug: "hamper-ferrero-roses", alt: "Ferrero and roses hamper" },
+        { img: "assets/images/money-bouquet-hamper-pink.jpeg", slug: "money-bouquet-pink-with-hamper", alt: "Pink money bouquet with hamper" },
+        { img: "assets/images/chocolate-tower-cadbury.jpeg", slug: "chocolate-tower-cadbury", alt: "Cadbury chocolate tower" },
+        { img: "assets/images/balloon-pink-trio.jpeg", slug: "balloon-pink-trio", alt: "Pink trio balloon set" }
+      ];
+      const track = document.getElementById("hero-track");
+      const dotsWrap = document.getElementById("hero-dots");
+      track.innerHTML = slidesData.map(s => `
+        <a class="slide" href="product.html?p=${s.slug}" aria-label="${s.alt}">
+          <img src="${s.img}" alt="${s.alt}" loading="eager">
+        </a>
+      `).join("");
+      dotsWrap.innerHTML = slidesData.map((_, i) => `<button aria-label="Slide ${i + 1}" data-i="${i}"${i === 0 ? ' class="active"' : ""}></button>`).join("");
+
+      const dots = dotsWrap.querySelectorAll("button");
+      const carousel = document.getElementById("hero-carousel");
+      const total = slidesData.length;
+      let i = 0, autoT;
+
+      function go(n) {
+        i = (n + total) % total;
+        track.style.transform = `translateX(-${i * 100}%)`;
+        dots.forEach((d, idx) => d.classList.toggle("active", idx === i));
+      }
+      function tickle() { clearTimeout(autoT); autoT = setTimeout(() => go(i + 1), 4500); }
+      function next() { go(i + 1); tickle(); }
+      function prev() { go(i - 1); tickle(); }
+
+      dots.forEach((d, idx) => d.addEventListener("click", () => { go(idx); tickle(); }));
+      carousel.querySelector(".next").addEventListener("click", next);
+      carousel.querySelector(".prev").addEventListener("click", prev);
+
+      // Touch / swipe
+      let startX = 0, dx = 0;
+      track.addEventListener("touchstart", e => { startX = e.touches[0].clientX; dx = 0; clearTimeout(autoT); }, { passive: true });
+      track.addEventListener("touchmove",  e => { dx = e.touches[0].clientX - startX; }, { passive: true });
+      track.addEventListener("touchend",   () => {
+        if (Math.abs(dx) > 40) (dx < 0 ? next : prev)();
+        else tickle();
+      });
+
+      // Pause on hover
+      carousel.addEventListener("mouseenter", () => clearTimeout(autoT));
+      carousel.addEventListener("mouseleave", tickle);
+
+      tickle();
+    })();
+
     // Categories grid
     document.getElementById("cat-grid").innerHTML = window.SS_CATEGORIES.slice(0, 4).map(c => `
       <a href="shop.html?c=${c.slug}" class="card-category">
