@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Occasions — Sweet Sentiments</title>
+  <meta name="description" content="Curated gifts for birthdays, anniversaries, Valentine's, apologies, and every moment that needs marking.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="collection-hero">
+        <div class="breadcrumb" id="bc">Home / Occasions</div>
+        <h1 id="title">Occasions</h1>
+        <p class="intro" id="intro">Choose a gift by the feeling, not the form. We've grouped the collection by the moments that matter most — birthdays, anniversaries, apologies, just-becauses. Each gift below has been chosen because it carries the right weight for that particular sentiment.</p>
+      </div>
+
+      <div class="tab-list" id="occ-tabs"></div>
+      <div class="product-grid" id="grid"></div>
+    </div>
+  </section>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    const occ = new URLSearchParams(location.search).get("o");
+
+    const OCC_INTRO = {
+      "birthday": "Birthdays vary in weight. A 21st calls for fanfare, a 50th for restraint, a child's for indulgence. Below are the gifts we send most often for each, sorted from playful to ceremonious.",
+      "anniversary": "An anniversary gift carries the year's silent accounting — the small kindnesses, the disagreements forgiven. The right gift is rarely the most expensive; it's the one that says I have been paying attention.",
+      "valentine": "Valentine's is the day to say what you usually leave assumed. Lavender money bouquets, full-room balloon setups, hand-tied roses — the gestures we reserve for the people we love quietly the rest of the year.",
+      "apology": "An apology gift is not a transaction; it is an opening. Below are the sentiments we send when language alone won't do — paired with a hand-written card and our recommendation that you also call.",
+      "just-because": "The most under-rated occasion. A gift sent for no reason carries more weight than a gift sent for one. The collection below is light, warm, and arrives without instruction.",
+      "congratulations": "For graduations, promotions, new homes, new ventures — gifts that celebrate without overshadowing. Money bouquets feature heavily here, with practical generosity baked into the gesture.",
+      "thank-you": "We say thank you here in a way that is neither token nor transaction. Hampers, chocolate bouquets, a 'beyond grateful' card. The gifts below are designed to land without obligation.",
+      "bridal": "For the bride who is owed a small gesture between fittings. Curated, calm, never themed. Most often a hamper or a quiet bouquet — never balloons."
+    };
+
+    function render() {
+      // tabs
+      const tabs = [{ slug: "all", name: "All Occasions" }, ...window.SS_OCCASIONS];
+      document.getElementById("occ-tabs").innerHTML = tabs.map(t => {
+        const active = (occ || "all") === t.slug ? " active" : "";
+        const href = t.slug === "all" ? "occasions.html" : `occasions.html?o=${t.slug}`;
+        return `<a href="${href}" class="${active}">${t.name}</a>`;
+      }).join("");
+
+      // hero
+      if (occ) {
+        const o = window.SS_OCCASIONS.find(x => x.slug === occ);
+        if (o) {
+          document.getElementById("title").textContent = o.name;
+          document.getElementById("intro").textContent = OCC_INTRO[occ] || "Curated gifts for this moment.";
+          document.getElementById("bc").innerHTML = `Home / <a href="occasions.html">Occasions</a> / ${o.name}`;
+        }
+      }
+
+      // grid
+      const list = occ ? window.SS_byOccasion(occ) : window.SS_PRODUCTS.slice();
+      const grid = document.getElementById("grid");
+      grid.innerHTML = list.length
+        ? list.map(ssRenderProductCard).join("")
+        : `<div style="grid-column:1/-1; text-align:center; padding:80px 20px;"><span class="script">— nothing for this just now —</span><p>Try another occasion.</p></div>`;
+      ssRehydrateFavs();
+    }
+
+    render();
+  </script>
+</body>
+</html>

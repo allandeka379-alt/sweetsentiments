@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sweet Sentiments — Curated Gifts. Delivered Beautifully.</title>
+  <meta name="description" content="Hand-curated hampers, money bouquets and surprise setups, made in Harare and delivered the same day across the city.">
+  <meta property="og:title" content="Sweet Sentiments — Curated Gifts">
+  <meta property="og:description" content="Hand-curated hampers, money bouquets and surprise setups, made in Harare.">
+  <meta property="og:image" content="assets/images/setup-room-balloons.jpeg">
+  <link rel="icon" href="assets/images/logo-mark.jpeg" type="image/jpeg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="grid">
+        <div class="hero-copy">
+          <span class="eyebrow">— The 2026 Collection</span>
+          <h1>Some gifts are remembered. <em>Ours are kept.</em></h1>
+          <p class="lede">Hand-curated hampers, money bouquets and surprise setups, made in Harare and delivered the same day across the city.</p>
+          <div class="ctas">
+            <a class="btn btn-ink btn-lg" href="shop.html">Shop the Collection</a>
+            <a class="btn btn-whatsapp btn-lg" href="https://wa.me/263717235937?text=Hi%20Sweet%20Sentiments%2C%20I%27d%20like%20to%20ask%20about%20a%20gift." target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20.5 3.5A11.7 11.7 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5zM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.9 9.9 0 1 1 22 12c0 5.5-4.5 10-10 10z"/></svg>
+              Order on WhatsApp
+            </a>
+          </div>
+          <div class="stats">
+            <span><strong>500+</strong>&nbsp;Sentiments Delivered</span>
+            <span class="dot"></span>
+            <span><strong>4.9 ★</strong>&nbsp;Average</span>
+            <span class="dot"></span>
+            <span>Free Card With Every Order</span>
+          </div>
+        </div>
+
+        <div class="hero-collage">
+          <div class="pic p1"><img src="assets/images/money-bouquet-purple.jpeg" alt="Lavender money bouquet"></div>
+          <div class="pic p2"><img src="assets/images/setup-room-balloons.jpeg" alt="Romantic room balloon setup"></div>
+          <div class="pic p3"><img src="assets/images/hamper-ferrero-roses.jpeg" alt="Ferrero and roses hamper"></div>
+          <div class="hero-badge"><span>Made in<br>Harare</span></div>
+          <span class="hero-script">pick yours ↘</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <section class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Hampers <em class="star">❋</em> Money Bouquets <em class="star">❋</em> Chocolate Towers <em class="star">❋</em> Balloon Arrangements <em class="star">❋</em> Romantic Setups <em class="star">❋</em> Bespoke <em class="star">❋</em></span>
+      <span>Hampers <em class="star">❋</em> Money Bouquets <em class="star">❋</em> Chocolate Towers <em class="star">❋</em> Balloon Arrangements <em class="star">❋</em> Romantic Setups <em class="star">❋</em> Bespoke <em class="star">❋</em></span>
+    </div>
+  </section>
+
+  <!-- CATEGORY GRID -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div class="row">
+          <div>
+            <span class="eyebrow">Browse by gift type</span>
+            <h2 class="h2-italic" style="margin-top:8px;">Every sentiment has a shape.</h2>
+          </div>
+          <a href="shop.html" class="btn btn-ghost">View All</a>
+        </div>
+      </div>
+      <div class="cat-grid" id="cat-grid"></div>
+    </div>
+  </section>
+
+  <!-- FEATURED COLLECTION -->
+  <section class="section section-tight">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">— This Week's Sentiments</span>
+        <h2 class="h2-italic" style="margin-top:8px;">Hand-picked from the studio.</h2>
+      </div>
+
+      <div class="chips" style="margin-bottom: 32px;" id="feat-chips">
+        <button class="chip active" data-occ="all">All</button>
+        <button class="chip" data-occ="anniversary">Romance</button>
+        <button class="chip" data-occ="birthday">Birthday</button>
+        <button class="chip" data-occ="just-because">Just Because</button>
+        <button class="chip" data-occ="apology">Apology</button>
+      </div>
+
+      <div class="product-grid" id="featured-grid"></div>
+    </div>
+  </section>
+
+  <!-- EDITORIAL FEATURE -->
+  <section class="editorial">
+    <div class="container">
+      <div class="grid">
+        <div>
+          <span class="eyebrow">Behind the Counter</span>
+          <h2>How a sentiment is made.</h2>
+          <ol class="steps">
+            <li><span class="num">01</span><div><strong>You choose.</strong><p>Tell us the moment, the recipient, and the feeling.</p></div></li>
+            <li><span class="num">02</span><div><strong>We curate.</strong><p>Chocolates, flowers, ribbons — sourced and hand-folded at the studio.</p></div></li>
+            <li><span class="num">03</span><div><strong>We wrap.</strong><p>Cream paper, grosgrain ribbon, hand-written card. Photographed before it leaves us.</p></div></li>
+            <li><span class="num">04</span><div><strong>We deliver.</strong><p>Same-day across Harare. Hand-delivered. We confirm with a photo.</p></div></li>
+          </ol>
+          <a href="bespoke.html" class="btn btn-ghost" style="border-color:var(--cream); color:var(--cream);">Commission a Bespoke Sentiment</a>
+        </div>
+        <div class="pic">
+          <img src="assets/images/money-bouquet-hamper-purple.jpeg" alt="Hand-tying a money bouquet">
+          <div class="caption">Hand-tied at the studio · Belgravia, Harare.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OCCASIONS RAIL -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">— Browse by occasion</span>
+        <h2 class="h2-italic" style="margin-top:8px;">For the moment that needs marking.</h2>
+      </div>
+      <div class="rail" id="occ-rail"></div>
+    </div>
+  </section>
+
+  <div class="divider-flower">❋</div>
+
+  <!-- TESTIMONIAL -->
+  <section class="section section-tight">
+    <div class="container-narrow">
+      <div class="testimonial">
+        <div class="stars">★ ★ ★ ★ ★</div>
+        <blockquote>"I sent the lavender money bouquet for my mother's 60th and she actually cried. Sweet Sentiments understood the gravity of the gesture. The card was hand-written. Every detail mattered."</blockquote>
+        <cite>— Tariro · 60th birthday · Avondale</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNAL TEASER -->
+  <section class="section section-tight">
+    <div class="container">
+      <div class="section-head">
+        <div class="row">
+          <div>
+            <span class="eyebrow">— Journal</span>
+            <h2 class="h2-italic" style="margin-top:8px;">On gifting well.</h2>
+          </div>
+          <a href="journal.html" class="btn btn-ghost">All Articles</a>
+        </div>
+      </div>
+      <div class="journal-grid">
+        <a class="article-card" href="journal.html">
+          <div class="thumb"><img src="assets/images/setup-i-love-u.jpeg" alt="Apology gifting"></div>
+          <div class="meta">Gifting Guide · 6 min read</div>
+          <h3>How to choose a gift for the apology that matters.</h3>
+          <p>Saying sorry well is a craft. We talked to a few of our most thoughtful clients about what they sent — and why it worked.</p>
+        </a>
+        <a class="article-card" href="journal.html">
+          <div class="thumb"><img src="assets/images/money-bouquet-purple.jpeg" alt="Hand-tied roses"></div>
+          <div class="meta">Studio Notes · 4 min read</div>
+          <h3>Why hand-tied roses still make people cry.</h3>
+          <p>The economics of cut flowers say one thing. The receiving moment says another. A short essay on craftsmanship.</p>
+        </a>
+        <a class="article-card" href="journal.html">
+          <div class="thumb"><img src="assets/images/chocolate-tower-cadbury.jpeg" alt="Zimbabwean gifting"></div>
+          <div class="meta">Culture · 5 min read</div>
+          <h3>A note on Zimbabwean gifting traditions.</h3>
+          <p>What a gift means here, the etiquette around money, and why we don't apologise for handing over an envelope.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM STRIP -->
+  <section class="section section-tight">
+    <div class="container">
+      <div class="section-head" style="text-align:center;">
+        <span class="eyebrow">— @sweetsentiments.zw</span>
+        <h2 class="h2-italic" style="margin-top:8px;">From the studio.</h2>
+      </div>
+      <div class="ig-strip">
+        <a href="https://instagram.com" target="_blank"><img src="assets/images/balloon-thank-you.jpeg" alt=""></a>
+        <a href="https://instagram.com" target="_blank"><img src="assets/images/money-bouquet-pink.jpeg" alt=""></a>
+        <a href="https://instagram.com" target="_blank"><img src="assets/images/hamper-ferrero-roses.jpeg" alt=""></a>
+        <a href="https://instagram.com" target="_blank"><img src="assets/images/chocolate-tower-cadbury.jpeg" alt=""></a>
+        <a href="https://instagram.com" target="_blank"><img src="assets/images/setup-room-balloons.jpeg" alt=""></a>
+        <a href="https://instagram.com" target="_blank"><img src="assets/images/money-bouquet-hamper-purple.jpeg" alt=""></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRE-FOOTER CTA -->
+  <section class="cta-band">
+    <span class="script" style="display:block; margin-bottom: 14px;">— from us, with care</span>
+    <h2>Send something they'll keep.</h2>
+    <a class="btn btn-whatsapp btn-lg" href="https://wa.me/263717235937?text=Hi%20Sweet%20Sentiments%2C%20I%27d%20like%20to%20ask%20about%20a%20gift." target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20.5 3.5A11.7 11.7 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5zM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.9 9.9 0 1 1 22 12c0 5.5-4.5 10-10 10z"/></svg>
+      Order on WhatsApp
+    </a>
+  </section>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Categories grid
+    document.getElementById("cat-grid").innerHTML = window.SS_CATEGORIES.slice(0, 4).map(c => `
+      <a href="shop.html?c=${c.slug}" class="card-category">
+        <img src="${c.image}" alt="${c.name}" loading="lazy">
+        <div class="label">${c.name}</div>
+        <div class="count">${c.count} pieces <span class="arrow">→</span></div>
+      </a>
+    `).join("");
+
+    // Occasions rail
+    document.getElementById("occ-rail").innerHTML = window.SS_OCCASIONS.map(o => `
+      <a href="occasions.html?o=${o.slug}" class="item">
+        <img src="${o.image}" alt="${o.name}" loading="lazy">
+        <div class="label">${o.name}</div>
+      </a>
+    `).join("");
+
+    // Featured grid + filter
+    function renderFeatured(occ = "all") {
+      const list = occ === "all"
+        ? window.SS_PRODUCTS.slice(0, 6)
+        : window.SS_byOccasion(occ).slice(0, 6);
+      document.getElementById("featured-grid").innerHTML = list.map(ssRenderProductCard).join("");
+      ssRehydrateFavs();
+    }
+    document.getElementById("feat-chips").addEventListener("click", e => {
+      const b = e.target.closest("button.chip");
+      if (!b) return;
+      document.querySelectorAll("#feat-chips .chip").forEach(c => c.classList.remove("active"));
+      b.classList.add("active");
+      renderFeatured(b.dataset.occ);
+    });
+    renderFeatured();
+  </script>
+</body>
+</html>

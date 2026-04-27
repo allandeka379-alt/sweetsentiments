@@ -1,0 +1,64 @@
+/* ========================================================================
+   Sweet Sentiments — Design Tokens
+   Curated Gifts. Delivered Beautifully.
+   ======================================================================== */
+
+:root {
+  /* ─── Colour Palette ─── */
+  --cream:     #FAF3EC;
+  --cream-2:   #F5EBE0;
+  --blush:     #F7D6D0;
+  --rose:      #E8A3A0;
+  --rouge:     #B94358;
+  --burgundy:  #7A1F2B;
+  --ink:       #1A0F10;
+  --ink-soft:  #4A3A3C;
+  --gold:      #C89B5B;
+  --line:      #D9CFC6;
+
+  --whatsapp:  #25D366;
+  --whatsapp-deep: #128C7E;
+
+  /* ─── Typography ─── */
+  --font-display: "Fraunces", "Cormorant Garamond", Georgia, serif;
+  --font-body:    "Inter Tight", "Inter", system-ui, -apple-system, sans-serif;
+  --font-script:  "Caveat", "Brush Script MT", cursive;
+
+  /* ─── Spacing scale (8pt grid with breathing room) ─── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  16px;
+  --space-4:  24px;
+  --space-5:  32px;
+  --space-6:  48px;
+  --space-7:  64px;
+  --space-8:  96px;
+  --space-9:  128px;
+  --space-10: 160px;
+
+  /* ─── Radii ─── */
+  --r-card:    14px;
+  --r-hero:    24px;
+  --r-pill:    999px;
+  --r-input:   14px;
+
+  /* ─── Shadows ─── */
+  --shadow-sm: 0 2px 8px rgba(26, 15, 16, 0.05);
+  --shadow-md: 0 8px 24px rgba(26, 15, 16, 0.08);
+  --shadow-lg: 0 20px 48px rgba(26, 15, 16, 0.12);
+  --shadow-rouge: 0 12px 32px rgba(185, 67, 88, 0.20);
+  --shadow-green: 0 8px 24px rgba(37, 211, 102, 0.25);
+
+  /* ─── Motion ─── */
+  --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-fast: 200ms;
+  --t-base: 300ms;
+  --t-slow: 600ms;
+
+  /* ─── Layout ─── */
+  --container: 1400px;
+  --container-narrow: 880px;
+  --container-essay: 720px;
+  --header-h: 84px;
+  --announce-h: 36px;
+}

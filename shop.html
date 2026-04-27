@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — Sweet Sentiments</title>
+  <meta name="description" content="Browse hampers, money bouquets, chocolate towers, balloon arrangements and romantic setups by Sweet Sentiments, Harare.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="collection-hero">
+        <div class="breadcrumb" id="breadcrumb">Home / Shop</div>
+        <h1 id="col-title">All Gifts</h1>
+        <p class="intro" id="col-intro">A complete view of the Sweet Sentiments collection — hampers, money bouquets, chocolate towers, balloon arrangements, and full-room romantic setups. Choose by feeling, not by feature.</p>
+        <div class="hero-pic"><img id="col-hero-img" src="assets/images/setup-room-balloons.jpeg" alt=""></div>
+      </div>
+
+      <div class="tab-list" id="cat-tabs"></div>
+
+      <div class="filter-bar">
+        <div class="chips" id="filters"></div>
+        <div class="sort-group">
+          <span>Sort</span>
+          <select id="sort">
+            <option value="featured">Featured</option>
+            <option value="newest">Newest</option>
+            <option value="asc">Price ↑</option>
+            <option value="desc">Price ↓</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="product-grid" id="grid"></div>
+
+      <div class="bespoke-nudge">
+        <span class="script" style="display:block; margin-bottom:12px;">— for the unrepeatable</span>
+        <h2>Don't see what you have in mind?</h2>
+        <p>We make bespoke sentiments. Tell us the moment, the budget, the brief — we'll do the rest.</p>
+        <a class="btn btn-ink" href="bespoke.html">Start a Bespoke Order</a>
+      </div>
+
+      <div style="margin-top: 64px;">
+        <div class="section-head">
+          <span class="eyebrow">— You might also love</span>
+          <h2 class="h2-italic" style="margin-top:8px;">Sister collections.</h2>
+        </div>
+        <div class="rail" id="related-rail"></div>
+      </div>
+    </div>
+  </section>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const cat = params.get("c");
+
+    // Category metadata
+    const CAT_META = {
+      "hampers": {
+        title: "Hampers",
+        intro: "Curated boxes of chocolate, snacks and silk roses — wrapped in clear acetate, finished with a pearl bow. The hamper is the gift that gives multiple times: opening, sharing, savouring.",
+        image: "assets/images/hamper-ferrero-roses.jpeg"
+      },
+      "money-bouquets": {
+        title: "Money Bouquets",
+        intro: "Folded US dollars and silk roses, hand-tied at the studio. A bouquet is a gesture; a money bouquet is a gesture with practical generosity sewn in. Best for the milestones — graduations, fiftieth birthdays, the thank-you that owes a real debt.",
+        image: "assets/images/money-bouquet-purple.jpeg"
+      },
+      "chocolate-towers": {
+        title: "Chocolate Towers",
+        intro: "Sculpted, stacked, ribbon-bound. The chocolate tower is theatre — designed to make a doorway feel like a moment. Cadbury, KitKat, Bourneville and a small crown topper.",
+        image: "assets/images/chocolate-tower-cadbury.jpeg"
+      },
+      "balloons": {
+        title: "Balloon Arrangements",
+        intro: "Bubble balloons, latex clusters and snack-bag bases — for celebrations that should arrive with a soft thud. Lit, lettered, or layered with chocolate, every arrangement is built around a single recipient.",
+        image: "assets/images/balloon-pink-trio.jpeg"
+      },
+      "setups": {
+        title: "Romantic Setups",
+        intro: "On-site installation of balloons, rose petals, candles and gift displays. Bedrooms, lounges, hotel suites — wherever the surprise should land. We arrive, install, photograph, and clear at your time.",
+        image: "assets/images/setup-room-balloons.jpeg"
+      },
+      "bespoke": {
+        title: "Bespoke",
+        intro: "When the gift needs to be unrepeatable. Past commissions include a 50th-anniversary bouquet of 100 yellow roses and a hand-bound card in the recipient's grandmother's handwriting. Every bespoke order starts as a WhatsApp conversation.",
+        image: "assets/images/bespoke-jersey.jpeg"
+      },
+      "all": {
+        title: "All Gifts",
+        intro: "A complete view of the Sweet Sentiments collection — hampers, money bouquets, chocolate towers, balloon arrangements, and full-room romantic setups. Choose by feeling, not by feature.",
+        image: "assets/images/setup-room-balloons.jpeg"
+      }
+    };
+
+    function renderCategoryHero() {
+      const key = cat && CAT_META[cat] ? cat : "all";
+      const m = CAT_META[key];
+      document.getElementById("col-title").textContent = m.title;
+      document.getElementById("col-intro").textContent = m.intro;
+      document.getElementById("col-hero-img").src = m.image;
+      document.getElementById("col-hero-img").alt = m.title;
+      document.getElementById("breadcrumb").innerHTML = `Home / Shop${cat ? ` / ${m.title}` : ""}`;
+    }
+
+    function renderCategoryTabs() {
+      const tabs = [{ slug: "all", name: "All Gifts" }, ...window.SS_CATEGORIES];
+      document.getElementById("cat-tabs").innerHTML = tabs.map(t => {
+        const active = (cat || "all") === t.slug ? " active" : "";
+        const href = t.slug === "all" ? "shop.html" : `shop.html?c=${t.slug}`;
+        return `<a href="${href}" class="${active}">${t.name}</a>`;
+      }).join("");
+    }
+
+    function renderFilters() {
+      const filters = [
+        { id: "all", label: "All" },
+        { id: "u50", label: "Under $50" },
+        { id: "50to100", label: "$50–$100" },
+        { id: "100p", label: "$100+" },
+        { id: "Pink", label: "Pink" },
+        { id: "Purple", label: "Purple" },
+        { id: "Cream", label: "Cream" }
+      ];
+      document.getElementById("filters").innerHTML = filters.map(f => `
+        <button class="chip ${f.id === "all" ? "active" : ""}" data-f="${f.id}">${f.label}</button>
+      `).join("");
+    }
+
+    let activeFilter = "all";
+    let sort = "featured";
+
+    function getList() {
+      let list = cat ? window.SS_byCategory(cat) : [...window.SS_PRODUCTS];
+      if (activeFilter === "u50") list = list.filter(p => p.price < 50);
+      else if (activeFilter === "50to100") list = list.filter(p => p.price >= 50 && p.price <= 100);
+      else if (activeFilter === "100p") list = list.filter(p => p.price > 100);
+      else if (["Pink", "Purple", "Cream"].includes(activeFilter)) list = list.filter(p => p.palette === activeFilter);
+
+      if (sort === "asc") list.sort((a, b) => a.price - b.price);
+      else if (sort === "desc") list.sort((a, b) => b.price - a.price);
+      else if (sort === "newest") list.sort((a, b) => (b.tag === "NEW") - (a.tag === "NEW"));
+      return list;
+    }
+
+    function renderGrid() {
+      const list = getList();
+      const grid = document.getElementById("grid");
+      if (!list.length) {
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:80px 20px; color:var(--ink-soft);"><span class="script" style="display:block; margin-bottom:8px;">— nothing found —</span>Try a different filter or browse all gifts.</div>`;
+        return;
+      }
+      let html = "";
+      list.forEach((p, i) => {
+        html += ssRenderProductCard(p);
+        // every 9 products, insert an inline story
+        if ((i + 1) % 9 === 0 && i !== list.length - 1) {
+          html += `
+            <article class="inline-story">
+              <div class="pic"><img src="assets/images/money-bouquet-hamper-pink.jpeg" alt=""></div>
+              <div class="copy">
+                <span class="eyebrow" style="margin-bottom:14px;">— Studio note</span>
+                <h3>Hand-folded, not factory-made.</h3>
+                <p style="color: var(--ink-soft);">Every dollar bill in our money bouquets is folded by us, in our Belgravia studio. It takes 40 minutes per bouquet. We promise you can tell.</p>
+              </div>
+            </article>
+          `;
+        }
+      });
+      grid.innerHTML = html;
+      ssRehydrateFavs();
+    }
+
+    function renderRelated() {
+      const others = window.SS_CATEGORIES.filter(c => c.slug !== cat);
+      document.getElementById("related-rail").innerHTML = others.slice(0, 6).map(c => `
+        <a href="shop.html?c=${c.slug}" class="item">
+          <img src="${c.image}" alt="${c.name}" loading="lazy">
+          <div class="label">${c.name}</div>
+        </a>
+      `).join("");
+    }
+
+    document.getElementById("filters").addEventListener("click", e => {
+      const b = e.target.closest("button.chip");
+      if (!b) return;
+      document.querySelectorAll("#filters .chip").forEach(c => c.classList.remove("active"));
+      b.classList.add("active");
+      activeFilter = b.dataset.f;
+      renderGrid();
+    });
+    document.getElementById("sort").addEventListener("change", e => {
+      sort = e.target.value;
+      renderGrid();
+    });
+
+    renderCategoryHero();
+    renderCategoryTabs();
+    renderFilters();
+    renderGrid();
+    renderRelated();
+  </script>
+</body>
+</html>

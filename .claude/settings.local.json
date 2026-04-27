@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(unzip -o '/c/Users/Lenovo/Downloads/SSP.zip' -d ./images_raw)",
+      "Bash(pandoc --track-changes=all '/c/Users/Lenovo/Downloads/Sweet_Sentiments_Web_Design.docx' -o design_spec.md)",
+      "Bash(where pandoc *)",
+      "Bash(where python *)",
+      "Read(//c/Users/Lenovo/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/23bab5b0-96ca-4241-9085-0e69712817a3/a1623242-34fe-4828-9f3f-02033ce638ae/skills/docx/scripts/office/**)",
+      "Bash(C:/Python314/python.exe 'C:/Users/Lenovo/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/23bab5b0-96ca-4241-9085-0e69712817a3/a1623242-34fe-4828-9f3f-02033ce638ae/skills/docx/scripts/office/unpack.py' '/c/Users/Lenovo/Downloads/Sweet_Sentiments_Web_Design.docx' '/c/Users/Lenovo/Downloads/Sweet Sentiments/docx_unpacked/')",
+      "Bash(C:/Python314/python.exe -c ' *)",
+      "Bash(mkdir -p assets/images assets/css assets/js pages)",
+      "Read(//c/c/Users/Lenovo/Downloads/**)",
+      "Bash(cp 'WhatsApp Image 2026-04-27 at 21.10.44.jpeg' '../../assets/images/logo-mark.jpeg')",
+      "Bash(cp 'WhatsApp Image 2026-04-27 at 20.42.40.jpeg' '../../assets/images/money-bouquet-pink.jpeg')",
+      "Bash(cp 'WhatsApp Image 2026-04-27 at 20.42.45.jpeg' '../../assets/images/money-bouquet-purple.jpeg')",
+      "Bash(cp 'WhatsApp Image 2026-04-27 at 20.42.39 \\(2\\).jpeg' '../../assets/images/money-bouquet-hamper-pink.jpeg')",
+      "Bash(cp 'WhatsApp Image 2026-04-27 at 20.42.45 \\(1\\).jpeg' '../../assets/images/money-bouquet-hamper-purple.jpeg')",
+      "Bash(vercel whoami *)"
+    ]
+  }
+}
