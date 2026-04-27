@@ -8,3 +8,5 @@ node_modules/
 docx_unpacked/
 images_raw/
 design_spec.txt
+
+.vercel

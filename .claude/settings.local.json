@@ -15,7 +15,8 @@
       "Bash(cp 'WhatsApp Image 2026-04-27 at 20.42.45.jpeg' '../../assets/images/money-bouquet-purple.jpeg')",
       "Bash(cp 'WhatsApp Image 2026-04-27 at 20.42.39 \\(2\\).jpeg' '../../assets/images/money-bouquet-hamper-pink.jpeg')",
       "Bash(cp 'WhatsApp Image 2026-04-27 at 20.42.45 \\(1\\).jpeg' '../../assets/images/money-bouquet-hamper-purple.jpeg')",
-      "Bash(vercel whoami *)"
+      "Bash(vercel whoami *)",
+      "Bash(vercel deploy *)"
     ]
   }
 }

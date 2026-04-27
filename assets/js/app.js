@@ -226,7 +226,7 @@ function ssShell() {
   const headerHTML = `
     <div class="announce">
       <span class="announce-pulse"></span>
-      <span>Same-day delivery in Harare · Order before 2pm · +263 71 723 5937</span>
+      <span>Nationwide delivery · Order before 2pm · +263 71 723 5937</span>
     </div>
     <header class="site-header" id="ss-header">
       <div class="inner">
@@ -243,7 +243,7 @@ function ssShell() {
         </nav>
         <a href="index.html" class="brand-mark" aria-label="Sweet Sentiments — Home">
           <span class="name">Sweet Sentiments</span>
-          <span class="tag">Curated Gifts · Harare</span>
+          <span class="tag">Curated Gifts · Delivered Everywhere</span>
         </a>
         <div class="utility">
           <a class="btn-wa-pill hide-mobile" href="${SS.waGreeting()}" target="_blank" rel="noopener">
@@ -337,7 +337,7 @@ function ssShell() {
           </div>
         </div>
         <div class="strip">
-          <div>© Sweet Sentiments 2026 · Crafted in Harare</div>
+          <div>© Sweet Sentiments 2026 · Delivered Beautifully</div>
           <div>
             <a href="#">Privacy</a>
             <a href="#">Terms</a>
@@ -371,7 +371,7 @@ function ssShell() {
           </div>
           <div class="field">
             <label for="cart-delivery">Delivery date & zone</label>
-            <input type="text" id="cart-delivery" placeholder="14 May · Borrowdale">
+            <input type="text" id="cart-delivery" placeholder="14 May · delivery address">
           </div>
           <div class="field">
             <label for="cart-card">Card message</label>
