@@ -15,154 +15,246 @@
   <link rel="stylesheet" href="assets/css/components.css?v=8">
 
   <style>
+    /* ========== Mobile-first admin styles ========== */
+
     body { background: var(--cream-2); }
-    .admin-shell { max-width: 1100px; margin: 0 auto; padding: 32px clamp(16px, 4vw, 40px) 80px; }
+
+    .admin-shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 16px 120px; /* room for sticky save bar */
+    }
+
     .admin-head {
-      display: flex; flex-direction: column; gap: 8px;
-      padding-bottom: 24px;
+      display: flex; flex-direction: column; gap: 6px;
+      padding-bottom: 18px;
       border-bottom: 1px solid var(--line);
-      margin-bottom: 28px;
+      margin-bottom: 22px;
     }
     .admin-head h1 {
       font-family: var(--font-display);
       font-style: italic;
-      font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 1;
+      font-size: 1.8rem;
+      line-height: 1.05;
       color: var(--ink);
+      margin: 4px 0 0;
     }
-    .admin-head p { color: var(--ink-soft); margin: 0; }
+    .admin-head p {
+      color: var(--ink-soft);
+      margin: 0;
+      font-size: 0.94rem;
+      line-height: 1.55;
+    }
     .admin-head a { color: var(--rouge); }
 
     .admin-section {
       background: var(--cream);
-      border-radius: 18px;
-      padding: clamp(20px, 3vw, 32px);
-      margin-bottom: 22px;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 16px;
       box-shadow: var(--shadow-sm);
     }
     .admin-section h2 {
       font-family: var(--font-display);
       font-style: italic;
-      font-size: 1.6rem;
-      margin: 0 0 16px;
+      font-size: 1.35rem;
+      margin: 0 0 12px;
     }
-    .admin-section .help { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 16px; }
+    .admin-section .help {
+      color: var(--ink-soft);
+      font-size: 0.88rem;
+      margin: 0 0 14px;
+      line-height: 1.55;
+    }
 
-    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-    @media (max-width: 720px) { .field-row { grid-template-columns: 1fr; } }
-    .field-stack { display: flex; flex-direction: column; gap: 14px; }
-
+    /* Form rows: stacked on mobile, 2-up on desktop */
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .field-stack { display: flex; flex-direction: column; gap: 12px; }
     .field input,
     .field select,
     .field textarea {
       width: 100%;
       box-sizing: border-box;
+      padding: 12px 14px;
+      font-size: 16px; /* prevents iOS zoom */
+    }
+    .field label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      font-weight: 500;
     }
 
-    .product-list { display: flex; flex-direction: column; gap: 14px; }
+    /* Product list — stacked card layout on mobile */
+    .product-list { display: flex; flex-direction: column; gap: 12px; }
     .product-item {
       display: grid;
-      grid-template-columns: 88px 1fr auto;
-      gap: 18px;
+      grid-template-areas:
+        "thumb info"
+        "price price"
+        "actions actions";
+      grid-template-columns: 64px 1fr;
+      gap: 10px 12px;
       align-items: center;
-      padding: 14px;
+      padding: 12px;
       border: 1px solid var(--line);
-      border-radius: 14px;
+      border-radius: 12px;
       background: var(--cream-2);
       transition: border-color 200ms;
     }
-    .product-item.changed { border-color: var(--gold); }
-    .product-item.deleted { opacity: 0.45; text-decoration: line-through; }
-    .product-item img {
-      width: 88px; height: 88px; border-radius: 10px;
+    .product-item.changed { border-color: var(--gold); border-width: 2px; padding: 11px; }
+    .product-item.deleted { opacity: 0.5; }
+    .product-item.deleted .name,
+    .product-item.deleted .meta { text-decoration: line-through; }
+
+    .product-item > img {
+      grid-area: thumb;
+      width: 64px; height: 64px; border-radius: 10px;
       object-fit: cover;
+      display: block;
     }
-    .product-item .info { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .product-item .info {
+      grid-area: info;
+      display: flex; flex-direction: column; gap: 4px;
+      min-width: 0;
+      overflow: hidden;
+    }
     .product-item .name {
       font-family: var(--font-display);
-      font-size: 1.1rem;
+      font-size: 1.02rem;
       line-height: 1.2;
+      display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
     }
     .product-item .meta {
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       color: var(--ink-soft);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+    .product-item .meta code {
+      font-size: 0.78em;
+    }
+
     .product-item .price-input {
-      width: 110px;
+      grid-area: price;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .product-item .price-input::before {
+      content: "USD";
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      font-weight: 500;
+      flex: 0 0 auto;
     }
     .product-item .price-input input {
-      width: 100%; font-family: var(--font-display);
+      flex: 1; min-width: 0;
+      font-family: var(--font-display);
       font-size: 1.1rem;
       text-align: right;
       padding: 10px 12px;
-    }
-    .product-item .actions { display: flex; gap: 6px; }
-    .product-item .actions button {
-      padding: 6px 10px;
-      border-radius: 8px;
+      border-radius: 10px;
       border: 1px solid var(--line);
       background: var(--cream);
-      font-size: 0.78rem;
-      transition: background 150ms, border-color 150ms;
     }
-    .product-item .actions button:hover { background: var(--blush); }
+
+    .product-item .actions {
+      grid-area: actions;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .product-item .actions button {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--cream);
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 150ms, border-color 150ms;
+      min-height: 40px;
+    }
+    .product-item .actions button:hover,
+    .product-item .actions button:active { background: var(--blush); }
     .product-item .actions .del { color: var(--rouge); }
-    .product-item .actions .del:hover { background: var(--rouge); color: var(--cream); border-color: var(--rouge); }
+    .product-item .actions .del:hover,
+    .product-item .actions .del:active { background: var(--rouge); color: var(--cream); border-color: var(--rouge); }
 
     .product-edit {
       grid-column: 1 / -1;
-      padding-top: 14px;
+      padding-top: 12px;
       margin-top: 4px;
       border-top: 1px solid var(--line);
       display: none;
     }
     .product-item.editing .product-edit { display: block; }
 
-    .add-form { display: flex; flex-direction: column; gap: 14px; }
+    /* Add new product form */
+    .add-form { display: flex; flex-direction: column; gap: 12px; }
+    .add-form .img-row {
+      display: flex; flex-direction: column; gap: 12px;
+    }
     .add-form .img-preview {
-      width: 120px; height: 120px;
+      width: 100%;
+      max-width: 240px;
+      aspect-ratio: 1/1;
       border: 2px dashed var(--line);
       border-radius: 12px;
       background: var(--cream-2);
       display: flex; align-items: center; justify-content: center;
       color: var(--ink-soft);
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       overflow: hidden;
     }
     .add-form .img-preview img { width: 100%; height: 100%; object-fit: cover; }
+    .add-form input[type="file"] { font-size: 0.88rem; }
 
+    /* Sticky save bar — full-width pill on mobile */
     .save-bar {
-      position: sticky;
-      bottom: 16px;
+      position: fixed;
+      left: 12px; right: 12px; bottom: 12px;
       background: var(--ink);
       color: var(--cream);
-      border-radius: 999px;
-      padding: 12px 18px 12px 22px;
-      display: flex; align-items: center; gap: 14px; justify-content: space-between;
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       box-shadow: var(--shadow-lg);
-      margin-top: 24px;
-      flex-wrap: wrap;
+      z-index: 50;
     }
-    .save-bar .summary { font-size: 0.92rem; }
+    .save-bar .summary { font-size: 0.86rem; line-height: 1.4; }
     .save-bar .summary strong { color: var(--gold); }
     .save-bar .btn-publish {
       background: var(--whatsapp);
       color: white;
-      padding: 10px 22px;
+      padding: 12px 18px;
       border-radius: 999px;
       font-weight: 600;
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       transition: background 200ms;
+      width: 100%;
+      min-height: 44px;
     }
-    .save-bar .btn-publish:hover { background: var(--whatsapp-deep); }
+    .save-bar .btn-publish:hover,
+    .save-bar .btn-publish:active { background: var(--whatsapp-deep); }
     .save-bar .btn-publish:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .status-bar {
-      padding: 10px 14px;
+      padding: 10px 12px;
       background: var(--cream-2);
       border-radius: 10px;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
+      line-height: 1.5;
       margin-bottom: 12px;
       border-left: 3px solid var(--gold);
     }
@@ -173,33 +265,87 @@
       display: inline-block;
       padding: 2px 8px;
       border-radius: 999px;
-      font-size: 0.66rem;
+      font-size: 0.6rem;
       letter-spacing: 0.14em;
       font-weight: 600;
       text-transform: uppercase;
       background: var(--rouge);
       color: var(--cream);
-      margin-left: 8px;
     }
     .tag-badge.gold { background: var(--gold); color: var(--ink); }
     .tag-badge.ink { background: var(--ink); color: var(--cream); }
 
-    code { background: var(--cream-2); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
-
-    .gate {
-      max-width: 500px;
-      margin: 80px auto;
-      background: var(--cream);
-      padding: 36px;
-      border-radius: 18px;
-      box-shadow: var(--shadow-md);
-      text-align: center;
+    code {
+      background: var(--cream-2);
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 0.84em;
+      word-break: break-all;
     }
-    .gate h1 {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 2rem;
-      margin-bottom: 14px;
+
+    /* Token setup list — readable on small screens */
+    #token-section ol {
+      padding-left: 18px;
+      line-height: 1.65;
+      font-size: 0.9rem;
+      margin: 12px 0;
+    }
+    #token-section ol li { margin-bottom: 6px; }
+
+    .btn-ink, .btn-ghost {
+      width: 100%;
+      min-height: 44px;
+      justify-content: center;
+    }
+
+    /* ========== Tablet+ (>= 720px) ========== */
+    @media (min-width: 720px) {
+      .admin-shell { padding: 32px 32px 90px; }
+      .admin-head h1 { font-size: 2.4rem; }
+      .admin-head p { font-size: 1rem; }
+      .admin-section { padding: 28px; border-radius: 18px; margin-bottom: 22px; }
+      .admin-section h2 { font-size: 1.55rem; margin-bottom: 16px; }
+      .admin-section .help { font-size: 0.92rem; }
+      .field-row { grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+
+      .product-item {
+        grid-template-areas: "thumb info price actions";
+        grid-template-columns: 88px 1fr auto auto;
+        gap: 18px;
+        padding: 14px;
+      }
+      .product-item.changed { padding: 13px; }
+      .product-item img { width: 88px; height: 88px; }
+      .product-item .name { font-size: 1.1rem; }
+      .product-item .meta { font-size: 0.78rem; white-space: normal; }
+      .product-item .price-input { width: 140px; }
+      .product-item .price-input::before { display: none; }
+      .product-item .actions { grid-template-columns: auto auto; gap: 6px; }
+      .product-item .actions button { padding: 8px 14px; font-size: 0.82rem; min-height: 36px; }
+
+      .add-form .img-row { flex-direction: row; align-items: flex-start; }
+      .add-form .img-preview { width: 140px; aspect-ratio: 1/1; }
+
+      .save-bar {
+        position: sticky;
+        left: auto; right: auto;
+        bottom: 16px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 999px;
+        padding: 10px 14px 10px 22px;
+        margin-top: 24px;
+      }
+      .save-bar .btn-publish { width: auto; padding: 10px 22px; }
+
+      .btn-ink, .btn-ghost { width: auto; min-height: auto; }
+    }
+
+    /* ========== Desktop (>= 1024px) ========== */
+    @media (min-width: 1024px) {
+      .admin-shell { padding: 40px 40px 80px; }
+      .admin-head h1 { font-size: 3rem; }
     }
   </style>
 </head>
@@ -409,10 +555,12 @@
         <img src="${p.image}" alt="">
         <div class="info">
           <div class="name">${p.name}${p.tag ? `<span class="tag-badge ${p.tag === 'NEW' ? 'gold' : p.tag === 'LIMITED' ? 'ink' : ''}">${p.tag}</span>` : ""}</div>
-          <div class="meta">${p.categoryLabel} · slug: <code>${p.slug}</code></div>
+          <div class="meta">${p.categoryLabel} · <code>${p.slug}</code></div>
+        </div>
+        <div class="price-input">
+          <input type="number" min="0" step="1" value="${p.price}" data-act="price" data-idx="${idx}" aria-label="Price USD">
         </div>
         <div class="actions">
-          <div class="price-input field"><input type="number" min="0" step="1" value="${p.price}" data-act="price" data-idx="${idx}"></div>
           <button data-act="edit" data-idx="${idx}">Edit</button>
           <button class="del" data-act="${state.deleted.has(p.slug) ? 'undelete' : 'delete'}" data-idx="${idx}">${state.deleted.has(p.slug) ? 'Restore' : 'Delete'}</button>
         </div>
@@ -578,7 +726,7 @@
       </div>
       <div class="field">
         <label>Product image *</label>
-        <div style="display:flex; gap:14px; align-items:center;">
+        <div class="img-row">
           <div class="img-preview" id="new-image-preview">No image yet</div>
           <input type="file" id="new-image" accept="image/jpeg,image/png,image/webp">
         </div>
