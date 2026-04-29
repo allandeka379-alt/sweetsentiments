@@ -65,8 +65,7 @@ window.SS_PRODUCTS = [
     "description": ["Our lavender money bouquet alongside a premium clear-display hamper: Lay's, Oreo, Cadbury, KitKat, and gilded Ferrero Rocher. Tied with our signature black 'Just For You' ribbon.", "The sentiment for the milestone — fiftieth birthdays, decade anniversaries, the promotions that were earned."],
     "included": "Lavender money bouquet · premium snack hamper · Ferrero Rocher · black 'Just For You' ribbon · hand-written card",
     "palette": "Purple",
-    "range": "100+",
-    "_changed": true
+    "range": "100+"
   },
   {
     "slug": "money-bouquet-sunflower",
@@ -81,8 +80,7 @@ window.SS_PRODUCTS = [
     "description": ["Dollar bills folded into a sunflower-bloom and crowned with gold-edged petals — paired with a generous snack box of Cadbury, Lay's and KitKat.", "A complete sentiment for a birthday or thank-you that should feel like a small celebration."],
     "included": "Sunflower money bouquet · snack box (Cadbury, Lay's, KitKat, Oreo) · gold-edge wrap · hand-written card",
     "palette": "Cream",
-    "range": "100+",
-    "_changed": true
+    "range": "100+"
   },
   {
     "slug": "chocolate-bouquet-blush",
@@ -106,7 +104,7 @@ window.SS_PRODUCTS = [
     "category": "chocolate-towers",
     "categoryLabel": "Chocolate Towers",
     "occasions": ["birthday", "anniversary", "congratulations"],
-    "price": 65,
+    "price": 5,
     "tag": "BESTSELLER",
     "image": "assets/images/chocolate-tower-cadbury.jpeg",
     "images": ["assets/images/chocolate-tower-cadbury.jpeg", "assets/images/hamper-after-eight.jpeg", "assets/images/chocolate-bouquet-pink.jpeg", "assets/images/hamper-ferrero-roses.jpeg"],
@@ -114,7 +112,8 @@ window.SS_PRODUCTS = [
     "description": ["A sculpted tower of Cadbury Dairy Milk Whole Nut, KitKats and Bourneville bars — bound with a 'Just For You' ribbon and crowned with a small clock-and-pearl topper.", "The kind of arrival that turns a doorway into a moment. Designed to be unwrapped slowly."],
     "included": "12-15 chocolate bars stacked · crown topper · 'Just For You' ribbon · base plate · hand-written card",
     "palette": "Purple",
-    "range": "50-100"
+    "range": "50-100",
+    "_changed": true
   },
   {
     "slug": "hamper-ferrero-roses",
