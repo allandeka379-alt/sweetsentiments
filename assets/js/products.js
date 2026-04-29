@@ -533,6 +533,22 @@ window.SS_PRODUCTS = [
     "included": "Balloon room arrangement.A touch of unconditional love",
     "palette": "Cream",
     "range": "50-100"
+  },
+  {
+    "slug": "birthday-room-decor-3hox",
+    "name": "Birthday Room Decor",
+    "category": "balloons",
+    "categoryLabel": "Balloon Arrangements",
+    "occasions": ["birthday"],
+    "price": 40,
+    "tag": "BESTSELLER",
+    "image": "assets/images/birthday-room-decor-3hox.jpeg",
+    "images": ["assets/images/birthday-room-decor-3hox.jpeg"],
+    "short": "Professionally styled balloon arches, neon signs, and floor-to-ceiling decor.",
+    "description": ["A room is a blank canvas. Our mission is to take that canvas and paint a story of celebration using texture, light, and color. From the ceiling to the floorboards, we specialize in high-impact transformations that turn everyday spaces into extraordinary memories."],
+    "included": "20 Ceiling balloons•20 Floor balloons•Heart balloons•Flower petals•Personalized backdrop",
+    "palette": "Pink",
+    "range": "<50"
   }
 ];
 
