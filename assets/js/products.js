@@ -551,6 +551,22 @@ window.SS_PRODUCTS = [
     "included": "20 Ceiling balloons•20 Floor balloons•Heart balloons•Flower petals•Personalized backdrop",
     "palette": "Pink",
     "range": "<50"
+  },
+  {
+    "slug": "money-bouquet-irp6",
+    "name": "Money bouquet",
+    "category": "money-bouquets",
+    "categoryLabel": "Money Bouquets",
+    "occasions": ["just-because"],
+    "price": 90,
+    "tag": "BESTSELLER",
+    "image": "assets/images/money-bouquet-irp6.jpeg",
+    "images": ["assets/images/money-bouquet-irp6.jpeg"],
+    "short": "Folded USD notes with beautiful add ons. Choose your color palette, flower type, and cash amount.",
+    "description": ["Forget flowers that fade—give a bouquet that makes a statement. Our Money Bouquets combine stunning floral artistry with the ultimate gift: cold, hard cash."],
+    "included": "Folded USD notes•Add ons of your choice>Chocolates,Flowers,Gift card",
+    "palette": "Pink",
+    "range": "50-100"
   }
 ];
 
