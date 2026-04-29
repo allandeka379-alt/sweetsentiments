@@ -517,6 +517,22 @@ window.SS_PRODUCTS = [
     "included": "Balloon setup.Touch of love.Baby warm colours",
     "palette": "Pink",
     "range": "50-100"
+  },
+  {
+    "slug": "baby-welcome-decoration-wvpc",
+    "name": "Baby Welcome Decoration",
+    "category": "balloons",
+    "categoryLabel": "Balloon Arrangements",
+    "occasions": ["congratulations"],
+    "price": 60,
+    "tag": "NEW",
+    "image": "assets/images/baby-welcome-decoration-wvpc.jpeg",
+    "images": ["assets/images/baby-welcome-decoration-wvpc.jpeg"],
+    "short": "No more sleep just lots of love",
+    "description": ["Bringing your little one home is a once-in-a-lifetime moment. You’ve spent months preparing your heart; now it’s time to prepare the space. Whether you are a parent looking to create a serene sanctuary or a loved one planning a surprise homecoming, the right decor transforms a room into a core memory."],
+    "included": "Balloon room arrangement.A touch of unconditional love",
+    "palette": "Cream",
+    "range": "50-100"
   }
 ];
 
