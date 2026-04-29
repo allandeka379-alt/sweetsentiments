@@ -208,7 +208,7 @@ window.SS_PRODUCTS = [
   },
   {
     "slug": "bespoke-jersey",
-    "name": "Bespoke Jersey Gift Box",
+    "name": "Bespoke Jersey Gift Box + Turkish Delights Chocolates",
     "category": "bespoke",
     "categoryLabel": "Bespoke",
     "occasions": ["birthday", "congratulations", "just-because"],
