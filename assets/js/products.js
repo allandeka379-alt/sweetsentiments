@@ -501,6 +501,22 @@ window.SS_PRODUCTS = [
     "included": "Adidas Campus sneakers · pink lace inserts · Hello-Kitty Stanley tumbler · gift wrap · hand-written card",
     "palette": "Pink",
     "range": "100+"
+  },
+  {
+    "slug": "baby-welcome-decoration-t8id",
+    "name": "Baby Welcome Decoration",
+    "category": "balloons",
+    "categoryLabel": "Balloon Arrangements",
+    "occasions": ["congratulations"],
+    "price": 60,
+    "tag": "BESTSELLER",
+    "image": "assets/images/baby-welcome-decoration-t8id.jpeg",
+    "images": ["assets/images/baby-welcome-decoration-t8id.jpeg"],
+    "short": "A royal welcome for our newest edition",
+    "description": ["Bringing your little one home is a once-in-a-lifetime moment. You’ve spent months preparing your heart; now it’s time to prepare the space. Whether you are a parent looking to create a serene sanctuary or a loved one planning a surprise homecoming, the right decor transforms a room into a core memory."],
+    "included": "Balloon setup.Touch of love.Baby warm colours",
+    "palette": "Pink",
+    "range": "50-100"
   }
 ];
 
