@@ -5,19 +5,7 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
-      ]
-    },
-    {
-      "source": "/assets/js/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=60, stale-while-revalidate=600" }
-      ]
-    },
-    {
-      "source": "/assets/css/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=300, stale-while-revalidate=86400" }
+        { "key": "Cache-Control", "value": "no-cache, must-revalidate" }
       ]
     },
     {
