@@ -2,139 +2,129 @@
    Page-specific styles
    ======================================================================== */
 
-/* ─── Home Hero ─── */
+/* ─── Home Hero (full-bleed background) ─── */
 .hero {
-  padding: clamp(32px, 5vw, 64px) 0 clamp(40px, 6vw, 80px);
   position: relative;
-}
-.hero-stack {
-  display: grid;
-  gap: clamp(28px, 4vw, 48px);
-}
-.hero-intro {
-  text-align: center;
-  max-width: 880px;
-  margin-inline: auto;
-}
-.hero h1 {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(2.4rem, 6.4vw, 5.4rem);
-  line-height: 1;
-  letter-spacing: -0.025em;
-  margin-block: 14px 22px;
-  color: var(--ink);
-}
-.hero h1 em { font-style: normal; color: var(--rouge); }
-.hero .lede {
-  font-size: clamp(1rem, 1.6vw, 1.2rem);
-  color: var(--ink-soft);
-  max-width: 56ch;
-  margin-inline: auto;
-}
-.hero .stats {
+  min-height: 88vh;
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  gap: 14px 22px;
-  font-size: 0.84rem;
-  color: var(--ink-soft);
-  letter-spacing: 0.02em;
-  padding-top: 8px;
-}
-.hero .stats span { display: inline-flex; align-items: center; gap: 8px; }
-.hero .stats .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
-
-/* ─── Hero Carousel (native scroll-snap) ─── */
-.hero-carousel {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: var(--r-hero);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  background: var(--cream-2);
+  background: var(--ink);
 }
-.hero-carousel .track {
-  display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
-  height: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  -webkit-overflow-scrolling: touch;
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
-.hero-carousel .track::-webkit-scrollbar { display: none; }
-
-.hero-carousel .slide {
-  flex: 0 0 100%;
-  width: 100%;
-  min-width: 100%;
-  height: 100%;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  position: relative;
-  display: block;
-  background: var(--cream-2);
-  overflow: hidden;
-}
-.hero-carousel .slide img {
+.hero-bg img {
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
+  animation: heroPan 30s ease-in-out infinite alternate;
 }
-.hero-carousel .slide::after {
+.hero-bg::after {
   content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(26,15,16,0.05) 0%, rgba(26,15,16,0.05) 45%, rgba(26,15,16,0.55) 100%);
-  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, rgba(26,15,16,0.25) 0%, rgba(26,15,16,0.55) 100%),
+    linear-gradient(180deg, rgba(26,15,16,0.35) 0%, transparent 30%, rgba(26,15,16,0.6) 100%);
+}
+@keyframes heroPan {
+  0%   { transform: scale(1.04) translateX(0); }
+  100% { transform: scale(1.08) translateX(-2%); }
 }
 
-.hero-carousel .overlay {
-  position: absolute;
-  left: clamp(20px, 4vw, 56px);
-  bottom: clamp(20px, 4vw, 48px);
-  z-index: 3;
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 920px;
+  margin-inline: auto;
+  text-align: center;
+  padding: clamp(60px, 10vh, 120px) 24px;
   color: var(--cream);
-  pointer-events: none;
-  line-height: 0.92;
+  width: 100%;
 }
-.hero-carousel .overlay .line-1 {
-  display: block;
-  font-family: var(--font-script);
-  color: var(--gold);
-  font-size: clamp(1.6rem, 4vw, 2.8rem);
-  letter-spacing: 0.01em;
-  margin-bottom: -2px;
-  transform: rotate(-3deg);
-  transform-origin: left bottom;
+.hero-content .eyebrow {
+  color: rgba(250,243,236,0.78);
+  display: inline-block;
 }
-.hero-carousel .overlay .line-2 {
-  display: block;
+.hero-content .lede {
+  color: rgba(250,243,236,0.88);
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  max-width: 56ch;
+  margin: 0 auto 34px;
+  line-height: 1.65;
+  text-shadow: 0 1px 12px rgba(0,0,0,0.3);
+}
+.hero-content .stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 14px 22px;
+  font-size: 0.82rem;
+  color: rgba(250,243,236,0.88);
+  letter-spacing: 0.02em;
+  border-top: 1px solid rgba(250,243,236,0.18);
+  padding-top: 28px;
+  max-width: 720px;
+  margin-inline: auto;
+}
+.hero-content .stats span { display: inline-flex; align-items: center; gap: 8px; }
+.hero-content .stats strong { font-weight: 600; }
+.hero-content .stats .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+
+/* ─── Headline rotator ─── */
+.hero-rotator {
+  position: relative;
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(2.6rem, 7vw, 5rem);
-  letter-spacing: -0.01em;
+  font-size: clamp(2.4rem, 6.4vw, 5.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 18px auto 28px;
+  min-height: 2.2em;
+  max-width: 18ch;
+  color: var(--cream);
+  font-weight: 400;
+  text-shadow: 0 2px 24px rgba(0,0,0,0.4);
+}
+.hero-rotator .line {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 900ms var(--ease-soft), transform 900ms var(--ease-soft);
+  pointer-events: none;
+}
+.hero-rotator .line em {
+  font-style: italic;
+  color: var(--rose);
+  font-weight: 500;
+}
+.hero-rotator .line.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (max-width: 768px) {
-  .hero { padding: 20px 0 36px; }
-  .hero-stack { gap: 24px; }
-  .hero h1 { font-size: clamp(2.2rem, 9vw, 3rem); margin-block: 10px 16px; }
-  .hero .lede { font-size: 0.98rem; max-width: 48ch; }
-  .hero .stats { gap: 8px 14px; font-size: 0.72rem; padding-top: 4px; }
-  .hero .stats .dot { display: none; }
-
-  .hero-carousel { aspect-ratio: 4/5; border-radius: 18px; }
-  .hero-carousel .overlay { left: 18px; bottom: 22px; }
+  .hero { min-height: 78vh; }
+  .hero-content { padding: 60px 20px; }
+  .hero-content .lede { font-size: 0.98rem; max-width: 44ch; margin-bottom: 28px; }
+  .hero-content .stats { gap: 8px 14px; font-size: 0.72rem; padding-top: 22px; }
+  .hero-content .stats .dot { display: none; }
+  .hero-rotator { font-size: clamp(2rem, 8.5vw, 3.2rem); min-height: 2.4em; max-width: 100%; margin: 14px auto 22px; }
 }
 
 @media (max-width: 380px) {
-  .hero h1 { font-size: 2rem; }
+  .hero { min-height: 72vh; }
+  .hero-rotator { font-size: 1.85rem; }
 }
 
 /* ─── Section heading ─── */

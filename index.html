@@ -14,38 +14,33 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/tokens.css">
-  <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="assets/css/components.css">
-  <link rel="stylesheet" href="assets/css/pages.css">
+  <link rel="stylesheet" href="assets/css/tokens.css?v=4">
+  <link rel="stylesheet" href="assets/css/base.css?v=4">
+  <link rel="stylesheet" href="assets/css/components.css?v=4">
+  <link rel="stylesheet" href="assets/css/pages.css?v=4">
 </head>
 <body>
 
   <!-- HERO -->
   <section class="hero">
-    <div class="container">
-      <div class="hero-stack">
-        <div class="hero-intro">
-          <span class="eyebrow">— The 2026 Collection</span>
-          <h1>Some gifts are remembered. <em>Ours are kept.</em></h1>
-          <p class="lede">Hampers, money bouquets and surprise setups — delivered, beautifully, wherever the moment lands.</p>
-        </div>
-
-        <div class="hero-carousel" id="hero-carousel">
-          <div class="track" id="hero-track"></div>
-          <div class="overlay">
-            <span class="line-1">Hand</span>
-            <span class="line-2">Curated.</span>
-          </div>
-        </div>
-
-        <div class="stats">
-          <span><strong>500+</strong>&nbsp;Sentiments Delivered</span>
-          <span class="dot"></span>
-          <span><strong>4.9 ★</strong>&nbsp;Average</span>
-          <span class="dot"></span>
-          <span>Free Card With Every Order</span>
-        </div>
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=2400&q=80" alt="" loading="eager" fetchpriority="high">
+    </div>
+    <div class="hero-content">
+      <span class="eyebrow">— The 2026 Collection</span>
+      <h1 class="hero-rotator" id="hero-rotator">
+        <span class="line active">Some gifts are remembered.<br><em>Ours are kept.</em></span>
+        <span class="line">For the moment that matters,<br><em>made by hand.</em></span>
+        <span class="line">Curated, hand-tied,<br><em>delivered beautifully.</em></span>
+        <span class="line">A sentiment, not a shop.<br><em>Made for the giver.</em></span>
+      </h1>
+      <p class="lede">Hampers, money bouquets and surprise setups — for the people who want their gestures to be felt.</p>
+      <div class="stats">
+        <span><strong>500+</strong>&nbsp;Sentiments Delivered</span>
+        <span class="dot"></span>
+        <span><strong>4.9 ★</strong>&nbsp;Average</span>
+        <span class="dot"></span>
+        <span>Free Card With Every Order</span>
       </div>
     </div>
   </section>
@@ -199,55 +194,17 @@
   <script src="assets/js/products.js"></script>
   <script src="assets/js/app.js"></script>
   <script>
-    // Hero carousel — native scroll-snap, auto-advance, no controls
-    (function initHeroCarousel() {
-      const slides = [
-        { img: "assets/images/money-bouquet-purple.jpeg", slug: "money-bouquet-purple-lily", alt: "Lavender money bouquet" },
-        { img: "assets/images/setup-room-balloons.jpeg", slug: "setup-romantic-room", alt: "Full romantic room surprise" },
-        { img: "assets/images/hamper-ferrero-roses.jpeg", slug: "hamper-ferrero-roses", alt: "Ferrero and roses hamper" },
-        { img: "assets/images/money-bouquet-hamper-pink.jpeg", slug: "money-bouquet-pink-with-hamper", alt: "Pink money bouquet with hamper" },
-        { img: "assets/images/chocolate-tower-cadbury.jpeg", slug: "chocolate-tower-cadbury", alt: "Cadbury chocolate tower" },
-        { img: "assets/images/balloon-pink-trio.jpeg", slug: "balloon-pink-trio", alt: "Pink trio balloon set" }
-      ];
-      const track = document.getElementById("hero-track");
-      const carousel = document.getElementById("hero-carousel");
-      if (!track || !carousel) return;
-
-      track.innerHTML = slides.map(s => `
-        <a class="slide" href="product.html?p=${s.slug}" aria-label="${s.alt}">
-          <img src="${s.img}" alt="${s.alt}">
-        </a>
-      `).join("");
-
-      const total = slides.length;
-      let i = 0, paused = false;
-
-      function go(n) {
-        i = (n + total) % total;
-        track.scrollTo({ left: i * track.clientWidth, behavior: "smooth" });
-      }
-
-      const tick = () => { if (!paused) go(i + 1); };
-      let timer = setInterval(tick, 3500);
-
-      carousel.addEventListener("mouseenter", () => paused = true);
-      carousel.addEventListener("mouseleave", () => paused = false);
-      track.addEventListener("touchstart", () => paused = true, { passive: true });
-      track.addEventListener("touchend",   () => { setTimeout(() => paused = false, 1500); });
-
-      // Sync `i` if user manually scrolls
-      let scrollT;
-      track.addEventListener("scroll", () => {
-        clearTimeout(scrollT);
-        scrollT = setTimeout(() => {
-          i = Math.round(track.scrollLeft / track.clientWidth) % total;
-        }, 120);
-      }, { passive: true });
-
-      // Re-anchor on viewport resize
-      window.addEventListener("resize", () => {
-        track.scrollTo({ left: i * track.clientWidth, behavior: "auto" });
-      });
+    // Hero headline rotator — fades between phrases
+    (function initHeroRotator() {
+      const rotator = document.getElementById("hero-rotator");
+      if (!rotator) return;
+      const lines = rotator.querySelectorAll(".line");
+      let i = 0;
+      setInterval(() => {
+        lines[i].classList.remove("active");
+        i = (i + 1) % lines.length;
+        lines[i].classList.add("active");
+      }, 4500);
     })();
 
     // Categories grid
