@@ -181,14 +181,15 @@ window.SS_PRODUCTS = [
     "category": "setups",
     "categoryLabel": "Romantic Setups",
     "occasions": ["valentine", "anniversary", "apology"],
-    "price": 60,
+    "price": 70,
     "image": "assets/images/setup-i-love-u.jpeg",
     "images": ["assets/images/setup-i-love-u.jpeg", "assets/images/setup-room-balloons.jpeg", "assets/images/money-bouquet-pink.jpeg", "assets/images/balloon-pink-trio.jpeg"],
     "short": "Silver foil letter balloons spelling I LOVE U with rose-gold heart.",
     "description": ["Silver foil letter balloons spelling I LOVE U, set against rose petals, candles and a heart-shaped frame of gold-foiled chocolates.", "Sized for a bedroom or living room — we install on site or supply for self-setup. The room becomes the message."],
     "included": "Silver foil letters (I LOVE U) · 36 rose petals · 6 LED candles · gold-chocolate heart frame · setup at studio rate",
     "palette": "Cream",
-    "range": "50-100"
+    "range": "50-100",
+    "tag": "BESTSELLER"
   },
   {
     "slug": "setup-romantic-room",
@@ -229,7 +230,7 @@ window.SS_PRODUCTS = [
     "categoryLabel": "Desserts",
     "occasions": ["birthday", "thank-you", "just-because", "congratulations"],
     "price": 3,
-    "tag": "NEW",
+    "tag": "BESTSELLER",
     "image": "assets/images/desserts-quintet.jpeg",
     "images": ["assets/images/desserts-quintet.jpeg", "assets/images/dessert-lotus.jpeg", "assets/images/dessert-cookies-pair.jpeg", "assets/images/dessert-mini-cubes.jpeg"],
     "short": "Five trifle-style trays — strawberry, lotus, oreo, maltesers, biscoff.",
@@ -267,7 +268,8 @@ window.SS_PRODUCTS = [
     "description": ["Our two best-selling desserts in one delivery. A Lotus Biscoff trifle and a Cookies & Cream tray with a single Oreo finish.", "Serves eight to ten between them. Sent chilled, ready to share."],
     "included": "2 chilled trifle trays · Lotus Biscoff · Cookies & Cream",
     "palette": "Cream",
-    "range": "<50"
+    "range": "<50",
+    "tag": "NEW"
   },
   {
     "slug": "dessert-mini-cubes",
