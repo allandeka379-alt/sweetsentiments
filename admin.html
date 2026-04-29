@@ -419,7 +419,17 @@
     lines.push("   ======================================================================== */");
     lines.push("");
 
-    const aliveProducts = state.products.filter(p => !state.deleted.has(p.slug));
+    // Strip internal admin-only markers before serialising
+    const aliveProducts = state.products
+      .filter(p => !state.deleted.has(p.slug))
+      .map(p => {
+        const clean = {};
+        for (const k of Object.keys(p)) {
+          if (k.startsWith("_")) continue;
+          clean[k] = p[k];
+        }
+        return clean;
+      });
     lines.push("window.SS_PRODUCTS = " + jsValue(aliveProducts) + ";");
     lines.push("");
     lines.push("window.SS_CATEGORIES = " + jsValue(state.categories) + ";");

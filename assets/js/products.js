@@ -112,8 +112,7 @@ window.SS_PRODUCTS = [
     "description": ["A sculpted tower of Cadbury Dairy Milk Whole Nut, KitKats and Bourneville bars — bound with a 'Just For You' ribbon and crowned with a small clock-and-pearl topper.", "The kind of arrival that turns a doorway into a moment. Designed to be unwrapped slowly."],
     "included": "12-15 chocolate bars stacked · crown topper · 'Just For You' ribbon · base plate · hand-written card",
     "palette": "Purple",
-    "range": "50-100",
-    "_changed": true
+    "range": "50-100"
   },
   {
     "slug": "hamper-ferrero-roses",
