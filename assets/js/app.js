@@ -368,16 +368,12 @@ function ssShell() {
             </ul>
           </div>
           <div class="news">
-            <h4>Newsletter</h4>
-            <p>Receive the next collection first.</p>
-            <form class="field" onsubmit="event.preventDefault(); SS.toast('Thank you — we will be in touch.'); this.reset();">
-              <div class="field">
-                <input type="email" placeholder="your@email.com" required style="border:0;border-bottom:1px solid var(--ink);border-radius:0;background:transparent;padding:10px 32px 10px 0;">
-              </div>
-            </form>
-            <p style="margin-top:18px; font-size:.86rem;">
-              <a href="https://instagram.com" target="_blank">Instagram</a> ·
-              <a href="${SS.waGreeting()}" target="_blank">WhatsApp</a>
+            <h4>Follow the studio</h4>
+            <p>See the next collection first — and watch us fold every dollar by hand.</p>
+            <p style="margin-top:14px; font-size:.92rem; line-height:2;">
+              <a href="https://www.instagram.com/sweet_.sentiments" target="_blank" rel="noopener">Instagram · @sweet_.sentiments</a><br>
+              <a href="https://www.tiktok.com/@sweet..sentiments" target="_blank" rel="noopener">TikTok · @sweet..sentiments</a><br>
+              <a href="${SS.waGreeting()}" target="_blank" rel="noopener">WhatsApp · +263 71 723 5937</a>
             </p>
           </div>
         </div>
