@@ -193,9 +193,10 @@ const SS = {
     }).join("");
 
     const total = this.total();
-    document.getElementById("checkout-sub").textContent = "$" + total.toFixed(0);
-    document.getElementById("checkout-tot").textContent = "$" + total.toFixed(0);
-    document.getElementById("checkout-cta-total").textContent = "$" + total.toFixed(0);
+    const totalStr = "$" + total.toFixed(0);
+    const sub = document.getElementById("checkout-sub"); if (sub) sub.textContent = totalStr;
+    const tot = document.getElementById("checkout-tot"); if (tot) tot.textContent = totalStr;
+    const fbt = document.getElementById("checkout-footbar-total"); if (fbt) fbt.textContent = totalStr;
 
     // Pre-fill from saved order defaults (set when user adds to cart from a PDP)
     try {
@@ -207,6 +208,16 @@ const SS = {
       if (d && !d.value && defaults.deliveryDate) d.value = defaults.deliveryDate;
       if (c && !c.value && defaults.cardMessage) c.value = defaults.cardMessage;
     } catch {}
+
+    // Live character count for card message
+    const cc = document.getElementById("co-card");
+    const ccCount = document.getElementById("co-card-count");
+    if (cc && ccCount && !cc.dataset.ccBound) {
+      const updateCount = () => { ccCount.textContent = `${cc.value.length} / 200`; };
+      cc.addEventListener("input", updateCount);
+      updateCount();
+      cc.dataset.ccBound = "1";
+    }
   },
   renderSearchResults(query) {
     const wrap = document.getElementById("search-results");
@@ -485,48 +496,65 @@ function ssShell() {
       <header class="checkout-head">
         <button class="checkout-back" onclick="SS.closeCheckout()" aria-label="Back to cart">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M15 18l-6-6 6-6"/></svg>
-          Back
+          <span>Back</span>
         </button>
-        <h2>Review your order</h2>
-        <span style="width:60px"></span>
+        <h2>Checkout</h2>
+        <button class="checkout-back" onclick="SS.closeCheckout()" aria-label="Close" style="visibility:hidden;">
+          <span>&nbsp;</span>
+        </button>
       </header>
 
       <div class="checkout-body">
         <section class="checkout-section">
-          <h3>Your gifts</h3>
+          <h3>Your order</h3>
           <div id="checkout-items" class="checkout-items"></div>
           <div class="checkout-totals">
             <div class="cart-row"><span>Subtotal</span><span id="checkout-sub">$0</span></div>
+            <div class="cart-row muted-row"><span>Delivery</span><span>Quoted on WhatsApp</span></div>
             <div class="cart-row total"><span>Total</span><span id="checkout-tot">$0</span></div>
           </div>
         </section>
 
         <section class="checkout-section">
-          <h3>Delivery details</h3>
+          <h3>Who's it for</h3>
           <div class="field">
-            <label for="co-recipient">Recipient name & phone *</label>
-            <input type="text" id="co-recipient" placeholder="Tinashe Moyo · 077 123 4567">
+            <label for="co-recipient">Recipient name & phone <span class="req">*</span></label>
+            <input type="text" id="co-recipient" autocomplete="name" placeholder="Tinashe Moyo · 077 123 4567">
           </div>
           <div class="field">
-            <label for="co-delivery">Delivery date & address *</label>
-            <input type="text" id="co-delivery" placeholder="14 May · 12 Rose Street, Avondale">
+            <label for="co-delivery">Delivery date & address <span class="req">*</span></label>
+            <input type="text" id="co-delivery" autocomplete="street-address" placeholder="14 May · 12 Rose Street, Avondale">
           </div>
         </section>
 
         <section class="checkout-section">
-          <h3>The card we'll write</h3>
+          <h3>Your message on the card</h3>
           <div class="field script-input">
             <textarea id="co-card" maxlength="200" placeholder="What should we write on the card?"></textarea>
+            <div class="char-count" id="co-card-count">0 / 200</div>
           </div>
-          <p class="checkout-hint">Free hand-written card with every order. We can sign it from you, or leave it anonymous — your call.</p>
         </section>
 
-        <button class="btn btn-whatsapp btn-block btn-lg checkout-cta" onclick="SS.checkout()">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20.5 3.5A11.7 11.7 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5zM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.9 9.9 0 1 1 22 12c0 5.5-4.5 10-10 10zm5.5-7.5l-2-1c-.3-.2-.6-.2-.8.1l-.8 1c-.2.2-.4.3-.7.1a8.1 8.1 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.4.1-.6l.6-.6.3-.6v-.4l-1-2.4c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.4 2.9 1.2 2.9.8 3.4.8.5-.1 1.5-.6 1.7-1.2.2-.6.2-1 .1-1.2 0-.1-.2-.2-.5-.4z"/></svg>
-          <span>Checkout on WhatsApp</span>
-          <span class="checkout-cta-total" id="checkout-cta-total">$0</span>
+        <ul class="checkout-trust">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="20" height="20"><path d="M12 22s-7-4-7-12V5l7-3 7 3v5c0 8-7 12-7 12z"/></svg><span>No payment is taken on the website</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="20" height="20"><circle cx="12" cy="12" r="3"/><path d="M3 7h4l2-3h6l2 3h4v12H3z"/></svg><span>Photo confirmation before dispatch</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="20" height="20"><path d="M3 7h13l5 5v5h-2"/><path d="M3 7v10h13V7"/><circle cx="7" cy="17" r="2"/><circle cx="18" cy="17" r="2"/></svg><span>Hand-delivered or couriered with care</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="20" height="20"><path d="M4 6h16v12H4z"/><path d="M4 10h16M9 14h2"/></svg><span>Free hand-written card with every order</span></li>
+        </ul>
+
+        <p class="checkout-fineprint">A pre-filled message opens in WhatsApp at <strong>+263 71 723 5937</strong>. The studio confirms availability and payment options (EcoCash, USD bank transfer, or USD cash on delivery) within 30 minutes during studio hours, 08:00–18:00.</p>
+      </div>
+
+      <!-- Sticky bottom CTA — always reachable on mobile -->
+      <div class="checkout-footbar">
+        <div class="checkout-footbar-total">
+          <span class="lbl">Order total</span>
+          <span class="val" id="checkout-footbar-total">$0</span>
+        </div>
+        <button class="btn btn-whatsapp btn-lg checkout-cta" onclick="SS.checkout()">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M20.5 3.5A11.7 11.7 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5zM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.9 9.9 0 1 1 22 12c0 5.5-4.5 10-10 10z"/></svg>
+          <span>Place order on WhatsApp</span>
         </button>
-        <p class="micro">A pre-filled message opens in WhatsApp. We respond within 30 minutes during studio hours (08:00–18:00) and confirm payment options on the chat.</p>
       </div>
     </aside>
   `;
