@@ -196,6 +196,17 @@ const SS = {
     document.getElementById("checkout-sub").textContent = "$" + total.toFixed(0);
     document.getElementById("checkout-tot").textContent = "$" + total.toFixed(0);
     document.getElementById("checkout-cta-total").textContent = "$" + total.toFixed(0);
+
+    // Pre-fill from saved order defaults (set when user adds to cart from a PDP)
+    try {
+      const defaults = JSON.parse(localStorage.getItem("ss-order-defaults") || "{}");
+      const r = document.getElementById("co-recipient");
+      const d = document.getElementById("co-delivery");
+      const c = document.getElementById("co-card");
+      if (r && !r.value && defaults.recipient) r.value = defaults.recipient;
+      if (d && !d.value && defaults.deliveryDate) d.value = defaults.deliveryDate;
+      if (c && !c.value && defaults.cardMessage) c.value = defaults.cardMessage;
+    } catch {}
   },
   renderSearchResults(query) {
     const wrap = document.getElementById("search-results");

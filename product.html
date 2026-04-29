@@ -10,10 +10,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/tokens.css?v=10">
-  <link rel="stylesheet" href="assets/css/base.css?v=10">
-  <link rel="stylesheet" href="assets/css/components.css?v=10">
-  <link rel="stylesheet" href="assets/css/pages.css?v=10">
+  <link rel="stylesheet" href="assets/css/tokens.css?v=11">
+  <link rel="stylesheet" href="assets/css/base.css?v=11">
+  <link rel="stylesheet" href="assets/css/components.css?v=11">
+  <link rel="stylesheet" href="assets/css/pages.css?v=11">
 </head>
 <body>
 
@@ -64,11 +64,11 @@
   <!-- Sticky mobile buy bar -->
   <div class="sticky-buy" id="sticky-buy">
     <div class="p" id="sticky-price"></div>
-    <a class="btn btn-whatsapp" id="sticky-wa" href="#" target="_blank" rel="noopener">Order on WhatsApp</a>
+    <button class="btn btn-ink" id="sticky-add" onclick="addThisToCart()">Add to Cart</button>
   </div>
 
   <script>document.write('<script src="assets/js/products.js?t='+Date.now()+'"><\/script>')</script>
-  <script src="assets/js/app.js?v=10"></script>
+  <script src="assets/js/app.js?v=11"></script>
   <script>
     const slug = new URLSearchParams(location.search).get("p") || "money-bouquet-pink-rose";
     const p = window.SS_findProduct(slug);
@@ -114,11 +114,9 @@
           </form>
 
           <div class="pdp-cta">
-            <a class="btn btn-whatsapp btn-block btn-lg" id="cta-wa" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20.5 3.5A11.7 11.7 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5zM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.9 9.9 0 1 1 22 12c0 5.5-4.5 10-10 10z"/></svg>
-              Order This on WhatsApp
-            </a>
-            <button class="btn btn-ghost btn-block" onclick="SS.add('${p.slug}'); SS.openCart();">Add to Cart</button>
+            <button class="btn btn-ink btn-block btn-lg" id="cta-add" onclick="addThisToCart()">
+              Add to Cart
+            </button>
           </div>
 
           <div class="trust-strip">
@@ -167,23 +165,24 @@
       });
       document.getElementById("main-img").style.transition = "opacity 200ms";
 
-      // CTA wiring
-      function buildWa() {
-        return SS.waSingleProduct(p.slug, {
-          cardMessage: document.getElementById("card-msg").value,
-          recipient: document.getElementById("recipient").value,
-          deliveryDate: document.getElementById("dd").value
-        });
-      }
-      function refreshLinks() {
-        const url = buildWa();
-        document.getElementById("cta-wa").href = url;
-        document.getElementById("sticky-wa").href = url;
-      }
-      ["card-msg", "recipient", "dd"].forEach(id =>
-        document.getElementById(id).addEventListener("input", refreshLinks)
-      );
-      refreshLinks();
+      // Add-to-Cart: capture the form fields, save them as the order's default
+      // personalisation (used to pre-fill the checkout screen), then add the item.
+      window.addThisToCart = function () {
+        const cardMessage = document.getElementById("card-msg")?.value.trim() || "";
+        const recipient   = document.getElementById("recipient")?.value.trim() || "";
+        const dd          = document.getElementById("dd")?.value || "";
+
+        // Save as defaults so checkout pre-fills next time
+        if (cardMessage || recipient || dd) {
+          try {
+            localStorage.setItem("ss-order-defaults", JSON.stringify({
+              cardMessage, recipient, deliveryDate: dd
+            }));
+          } catch {}
+        }
+        SS.add(p.slug);
+        SS.openCart();
+      };
 
       // Sticky bottom bar: show only when the in-page CTAs are off-screen,
       // so it never covers the Add to Cart / Order buttons while they're visible.
