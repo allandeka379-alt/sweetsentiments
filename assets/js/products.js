@@ -9,7 +9,7 @@ window.SS_PRODUCTS = [
     "category": "money-bouquets",
     "categoryLabel": "Money Bouquets",
     "occasions": ["birthday", "anniversary", "graduation", "thank-you"],
-    "price": 75,
+    "price": 45,
     "tag": "BESTSELLER",
     "image": "assets/images/money-bouquet-pink.jpeg",
     "images": ["assets/images/money-bouquet-pink.jpeg", "assets/images/money-bouquet-hamper-pink.jpeg", "assets/images/money-bouquet-sunflower.jpeg", "assets/images/money-bouquet-purple.jpeg"],
