@@ -144,6 +144,55 @@ const SS = {
     document.querySelector(".mobile-menu")?.classList.remove("open");
     document.body.style.overflow = "";
   },
+  openSearch() {
+    const ov = document.getElementById("search-overlay");
+    if (!ov) return;
+    ov.classList.add("open");
+    document.body.style.overflow = "hidden";
+    this.renderSearchResults("");
+    setTimeout(() => document.getElementById("search-input")?.focus(), 80);
+  },
+  closeSearch() {
+    document.getElementById("search-overlay")?.classList.remove("open");
+    document.body.style.overflow = "";
+    const inp = document.getElementById("search-input");
+    if (inp) inp.value = "";
+  },
+  renderSearchResults(query) {
+    const wrap = document.getElementById("search-results");
+    if (!wrap) return;
+    const q = query.trim().toLowerCase();
+    let list;
+    if (!q) {
+      list = (window.SS_PRODUCTS || []).slice(0, 6);
+      wrap.dataset.label = "Popular";
+    } else {
+      list = (window.SS_PRODUCTS || []).filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.short.toLowerCase().includes(q) ||
+        p.categoryLabel.toLowerCase().includes(q) ||
+        (p.occasions || []).some(o => o.includes(q)) ||
+        (p.palette || "").toLowerCase().includes(q)
+      ).slice(0, 8);
+      wrap.dataset.label = list.length ? `${list.length} match${list.length === 1 ? "" : "es"}` : "No matches";
+    }
+    wrap.innerHTML = list.length
+      ? `<div class="search-meta">${wrap.dataset.label}</div>` + list.map(p => `
+          <a class="search-row" href="product.html?p=${p.slug}">
+            <img src="${p.image}" alt="" loading="lazy">
+            <div class="info">
+              <div class="name">${p.name}</div>
+              <div class="meta">${p.categoryLabel} · $${p.price}</div>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        `).join("")
+      : `<div class="search-empty">
+          <span class="script">— nothing found —</span>
+          <p>Try a different word, or message the studio for help.</p>
+          <a class="btn btn-whatsapp" href="${this.waGreeting()}" target="_blank" rel="noopener">Ask the studio</a>
+        </div>`;
+  },
 
   /* ─── WhatsApp message builders ─── */
   waUrl(message) {
@@ -246,7 +295,7 @@ function ssShell() {
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.7 11.7 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5zM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.9 9.9 0 1 1 22 12c0 5.5-4.5 10-10 10zm5.5-7.5l-2-1c-.3-.2-.6-.2-.8.1l-.8 1c-.2.2-.4.3-.7.1a8.1 8.1 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.4.1-.6l.6-.6.3-.6v-.4l-1-2.4c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.4 2.9 1.2 2.9.8 3.4.8.5-.1 1.5-.6 1.7-1.2.2-.6.2-1 .1-1.2 0-.1-.2-.2-.5-.4z"/></svg>
             WhatsApp
           </a>
-          <button class="icon-btn" aria-label="Search">
+          <button class="icon-btn" aria-label="Search" onclick="SS.openSearch()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
           </button>
           <button class="icon-btn" aria-label="Cart" onclick="SS.openCart()">
@@ -346,6 +395,21 @@ function ssShell() {
     <a href="${SS.waGreeting()}" class="sticky-wa show-mobile" target="_blank" rel="noopener" aria-label="WhatsApp order">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.7 11.7 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5zM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.9 9.9 0 1 1 22 12c0 5.5-4.5 10-10 10zm5.5-7.5l-2-1c-.3-.2-.6-.2-.8.1l-.8 1c-.2.2-.4.3-.7.1a8.1 8.1 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.4.1-.6l.6-.6.3-.6v-.4l-1-2.4c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.4 2.9 1.2 2.9.8 3.4.8.5-.1 1.5-.6 1.7-1.2.2-.6.2-1 .1-1.2 0-.1-.2-.2-.5-.4z"/></svg>
     </a>
+
+    <!-- Search overlay -->
+    <div class="search-overlay" id="search-overlay">
+      <button class="search-close" onclick="SS.closeSearch()" aria-label="Close search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="search-inner">
+        <span class="eyebrow">— Find a sentiment</span>
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" width="22" height="22"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="search-input" type="text" placeholder="Try 'money bouquet', 'apology', 'chocolate'..." autocomplete="off" />
+        </div>
+        <div class="search-results" id="search-results"></div>
+      </div>
+    </div>
 
     <!-- Cart drawer -->
     <div class="cart-overlay" onclick="SS.closeCart()"></div>
@@ -451,7 +515,15 @@ document.addEventListener("DOMContentLoaded", () => {
   ssShell();
   // ESC to close drawers
   window.addEventListener("keydown", e => {
-    if (e.key === "Escape") { SS.closeCart(); SS.closeMenu(); }
+    if (e.key === "Escape") { SS.closeCart(); SS.closeMenu(); SS.closeSearch(); }
+  });
+  // Live search input
+  document.getElementById("search-input")?.addEventListener("input", e => {
+    SS.renderSearchResults(e.target.value);
+  });
+  // Close search on overlay backdrop click (but not on inner content)
+  document.getElementById("search-overlay")?.addEventListener("click", e => {
+    if (e.target.id === "search-overlay") SS.closeSearch();
   });
   // Hydrate favs after any product cards mount
   setTimeout(ssRehydrateFavs, 50);

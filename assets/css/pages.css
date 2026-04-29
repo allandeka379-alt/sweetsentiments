@@ -464,10 +464,17 @@
   padding: 32px 0 56px;
   align-items: start;
 }
-@media (max-width: 980px) { .pdp { grid-template-columns: 1fr; } }
+@media (max-width: 980px) {
+  .pdp { grid-template-columns: 1fr; }
+}
 
 .gallery {
   position: sticky; top: calc(var(--header-h) + 16px);
+}
+/* Stop sticky behaviour when PDP collapses to single column —
+   otherwise the gallery pins and info text scrolls behind it. */
+@media (max-width: 980px) {
+  .gallery { position: static; top: auto; }
 }
 .gallery .main {
   aspect-ratio: 4/5;
