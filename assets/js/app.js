@@ -158,6 +158,45 @@ const SS = {
     const inp = document.getElementById("search-input");
     if (inp) inp.value = "";
   },
+  openCheckout() {
+    const items = this.loadCart();
+    if (!items.length) { this.toast("Your selection is empty."); return; }
+    const ov = document.getElementById("checkout-overlay");
+    if (!ov) return;
+    this.renderCheckout();
+    ov.classList.add("open");
+    document.body.style.overflow = "hidden";
+  },
+  closeCheckout() {
+    document.getElementById("checkout-overlay")?.classList.remove("open");
+    if (!document.querySelector(".cart-drawer.open")) {
+      document.body.style.overflow = "";
+    }
+  },
+  renderCheckout() {
+    const wrap = document.getElementById("checkout-items");
+    if (!wrap) return;
+    const items = this.loadCart();
+    wrap.innerHTML = items.map(it => {
+      const p = window.SS_findProduct(it.slug);
+      if (!p) return "";
+      const lineTotal = p.price * it.qty;
+      return `
+        <div class="checkout-item">
+          <img src="${p.image}" alt="">
+          <div class="info">
+            <div class="name">${p.name}</div>
+            <div class="meta">${p.categoryLabel}${it.qty > 1 ? ` · qty ${it.qty}` : ""}</div>
+          </div>
+          <div class="line-total">$${lineTotal.toFixed(0)}</div>
+        </div>`;
+    }).join("");
+
+    const total = this.total();
+    document.getElementById("checkout-sub").textContent = "$" + total.toFixed(0);
+    document.getElementById("checkout-tot").textContent = "$" + total.toFixed(0);
+    document.getElementById("checkout-cta-total").textContent = "$" + total.toFixed(0);
+  },
   renderSearchResults(query) {
     const wrap = document.getElementById("search-results");
     if (!wrap) return;
@@ -407,7 +446,7 @@ function ssShell() {
       </div>
     </div>
 
-    <!-- Cart drawer -->
+    <!-- Cart drawer (step 1 — review items) -->
     <div class="cart-overlay" onclick="SS.closeCart()"></div>
     <aside class="cart-drawer" aria-label="Cart">
       <div class="cart-head">
@@ -420,25 +459,63 @@ function ssShell() {
       <div class="cart-foot" id="cart-foot" style="display:none;">
         <div class="cart-row"><span>Subtotal</span><span class="sub">$0</span></div>
         <div class="cart-row total"><span>Total</span><span class="tot">$0</span></div>
-        <div class="cart-personalisation">
-          <div class="field">
-            <label for="cart-recipient">Recipient & phone</label>
-            <input type="text" id="cart-recipient" placeholder="Tinashe Moyo · 077 123 4567">
-          </div>
-          <div class="field">
-            <label for="cart-delivery">Delivery date & zone</label>
-            <input type="text" id="cart-delivery" placeholder="14 May · delivery address">
-          </div>
-          <div class="field">
-            <label for="cart-card">Card message</label>
-            <textarea id="cart-card" placeholder="What should we write on the card?" maxlength="200"></textarea>
-          </div>
-        </div>
-        <button class="btn btn-whatsapp btn-block btn-lg" onclick="SS.checkout()">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20.5 3.5A11.7 11.7 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5zM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.9 9.9 0 1 1 22 12c0 5.5-4.5 10-10 10zm5.5-7.5l-2-1c-.3-.2-.6-.2-.8.1l-.8 1c-.2.2-.4.3-.7.1a8.1 8.1 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.4.1-.6l.6-.6.3-.6v-.4l-1-2.4c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.4 2.9 1.2 2.9.8 3.4.8.5-.1 1.5-.6 1.7-1.2.2-.6.2-1 .1-1.2 0-.1-.2-.2-.5-.4z"/></svg>
-          Send Order via WhatsApp
+        <button class="btn btn-ink btn-block btn-lg" onclick="SS.openCheckout()">
+          Checkout →
         </button>
-        <p class="micro">Your order will open in WhatsApp for confirmation. We respond within 30 minutes during studio hours (08:00–18:00).</p>
+        <button class="btn btn-ghost btn-block" style="margin-top:8px;" onclick="SS.closeCart()">
+          Continue browsing
+        </button>
+        <p class="micro">No payment is taken on the website. Checkout opens a WhatsApp message we confirm by hand.</p>
+      </div>
+    </aside>
+
+    <!-- Checkout overlay (step 2 — review + form + send) -->
+    <div class="checkout-overlay" id="checkout-overlay" aria-label="Checkout">
+      <header class="checkout-head">
+        <button class="checkout-back" onclick="SS.closeCheckout()" aria-label="Back to cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M15 18l-6-6 6-6"/></svg>
+          Back
+        </button>
+        <h2>Review your order</h2>
+        <span style="width:60px"></span>
+      </header>
+
+      <div class="checkout-body">
+        <section class="checkout-section">
+          <h3>Your gifts</h3>
+          <div id="checkout-items" class="checkout-items"></div>
+          <div class="checkout-totals">
+            <div class="cart-row"><span>Subtotal</span><span id="checkout-sub">$0</span></div>
+            <div class="cart-row total"><span>Total</span><span id="checkout-tot">$0</span></div>
+          </div>
+        </section>
+
+        <section class="checkout-section">
+          <h3>Delivery details</h3>
+          <div class="field">
+            <label for="co-recipient">Recipient name & phone *</label>
+            <input type="text" id="co-recipient" placeholder="Tinashe Moyo · 077 123 4567">
+          </div>
+          <div class="field">
+            <label for="co-delivery">Delivery date & address *</label>
+            <input type="text" id="co-delivery" placeholder="14 May · 12 Rose Street, Avondale">
+          </div>
+        </section>
+
+        <section class="checkout-section">
+          <h3>The card we'll write</h3>
+          <div class="field script-input">
+            <textarea id="co-card" maxlength="200" placeholder="What should we write on the card?"></textarea>
+          </div>
+          <p class="checkout-hint">Free hand-written card with every order. We can sign it from you, or leave it anonymous — your call.</p>
+        </section>
+
+        <button class="btn btn-whatsapp btn-block btn-lg checkout-cta" onclick="SS.checkout()">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20.5 3.5A11.7 11.7 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5zM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.9 9.9 0 1 1 22 12c0 5.5-4.5 10-10 10zm5.5-7.5l-2-1c-.3-.2-.6-.2-.8.1l-.8 1c-.2.2-.4.3-.7.1a8.1 8.1 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.4.1-.6l.6-.6.3-.6v-.4l-1-2.4c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.4 2.9 1.2 2.9.8 3.4.8.5-.1 1.5-.6 1.7-1.2.2-.6.2-1 .1-1.2 0-.1-.2-.2-.5-.4z"/></svg>
+          <span>Checkout on WhatsApp</span>
+          <span class="checkout-cta-total" id="checkout-cta-total">$0</span>
+        </button>
+        <p class="micro">A pre-filled message opens in WhatsApp. We respond within 30 minutes during studio hours (08:00–18:00) and confirm payment options on the chat.</p>
       </div>
     </aside>
   `;
@@ -456,9 +533,15 @@ function ssShell() {
 }
 
 SS.checkout = function() {
-  const recipient = document.getElementById("cart-recipient")?.value || "";
-  const delivery = document.getElementById("cart-delivery")?.value || "";
-  const cardMessage = document.getElementById("cart-card")?.value || "";
+  const recipient = document.getElementById("co-recipient")?.value.trim() || "";
+  const delivery = document.getElementById("co-delivery")?.value.trim() || "";
+  const cardMessage = document.getElementById("co-card")?.value.trim() || "";
+
+  if (!recipient || !delivery) {
+    SS.toast("Please add a recipient and delivery date.");
+    document.getElementById(!recipient ? "co-recipient" : "co-delivery")?.focus();
+    return;
+  }
   const url = SS.waCart({ recipient, deliveryDate: delivery, cardMessage });
   window.open(url, "_blank");
 };
@@ -511,7 +594,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ssShell();
   // ESC to close drawers
   window.addEventListener("keydown", e => {
-    if (e.key === "Escape") { SS.closeCart(); SS.closeMenu(); SS.closeSearch(); }
+    if (e.key === "Escape") { SS.closeCheckout(); SS.closeCart(); SS.closeMenu(); SS.closeSearch(); }
   });
   // Live search input
   document.getElementById("search-input")?.addEventListener("input", e => {

@@ -577,6 +577,7 @@
   background: var(--cream);
   border-top: 1px solid var(--line);
   padding: 12px 20px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom, 12px));
   display: none;
   z-index: 65;
   align-items: center;
@@ -585,9 +586,15 @@
   box-shadow: 0 -8px 24px rgba(26, 15, 16, 0.08);
 }
 .sticky-buy .p { font-family: var(--font-display); font-size: 1.4rem; }
+.sticky-buy .btn { flex-shrink: 0; padding: 0.85rem 1.2rem; font-size: 0.85rem; }
+
+/* Push the bottom of the page above the sticky bar so the in-page CTAs
+   (Order on WhatsApp / Add to Cart) are reachable when the bar is up. */
+body.pdp-sticky-active { padding-bottom: 88px; }
+body.pdp-sticky-active .sticky-wa { display: none; }
+
 @media (max-width: 768px) {
   .sticky-buy.show { display: flex; }
-  .sticky-wa { bottom: 84px; }
 }
 
 /* Reviews */
