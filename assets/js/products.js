@@ -214,7 +214,7 @@ window.SS_PRODUCTS = [
     "categoryLabel": "Bespoke",
     "occasions": ["birthday", "congratulations", "just-because"],
     "price": 100,
-    "tag": "BESPOKE",
+    "tag": "BESTSELLER",
     "image": "assets/images/bespoke-jersey.jpeg",
     "images": ["assets/images/bespoke-jersey.jpeg", "assets/images/hamper-after-eight.jpeg", "assets/images/balloon-thank-you.jpeg", "assets/images/money-bouquet-pink.jpeg"],
     "short": "Custom jersey-of-choice with chocolate and a hand-tied bow.",
