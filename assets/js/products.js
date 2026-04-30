@@ -447,7 +447,7 @@ window.SS_PRODUCTS = [
     "category": "setups",
     "categoryLabel": "Romantic Setups",
     "occasions": ["valentine", "anniversary", "apology"],
-    "price": 5,
+    "price": 15,
     "image": "assets/images/setup-ferrero-heart.jpeg",
     "images": ["assets/images/setup-ferrero-heart.jpeg", "assets/images/setup-i-love-u.jpeg", "assets/images/setup-room-balloons.jpeg"],
     "short": "Heart of 26 Ferrero Rocher around a single red candle.",
